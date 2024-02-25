@@ -17,7 +17,7 @@ class KissDate extends StatelessWidget {
       title: 'Kiss Date',
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 243, 105, 137)),
+            ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 243, 105, 137)),
         useMaterial3: true,
       ),
       home: const MainMenu(titulo: 'Kiss Date'),
