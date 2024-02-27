@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../controllers/users_controller.dart';
+import 'package:kissdate/root.dart';
 
-UserController userController = UserController();
 
 // Mostrar lista de personas
 class ListPeople extends StatefulWidget {
@@ -15,26 +14,34 @@ class ListPeople extends StatefulWidget {
 
 class _ListPeopleState extends State<ListPeople> {
   var users = [];
+  var list = [];
 
-  Future<void> getUsers() async{
+  Future<void> getUsers() async {
     var u = await userController.users();
     setState(() {
       users = u;
     });
   }
 
+  Future<void> getList() async {
+    var p = await peopleController.list(userId);
+    setState(() {
+      list = p;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    getUsers();
+    //getUsers();
+    getList();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.titulo),
       ),
       body: Center(
-        //child: Text('Lista de personas'),
-        child: Text(users.toString())
-      ),
+          //child: Text('Lista de personas'),
+          child: Text(list.toString())),
     );
   }
 }

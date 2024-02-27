@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kissdate/root.dart';
 
 // Añadir una nueva persona a la lista
 
@@ -14,18 +16,38 @@ class AddPerson extends StatefulWidget {
 // Formulario para incluir datos sobre una persona
 class _AddPersonState extends State<AddPerson> {
   final _formKey = GlobalKey<FormState>();
-  final _nombreController = TextEditingController();
-  final _fechaController = TextEditingController();
-  final _relacionController = TextEditingController();
-  final _observacionesController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _nationalityController = TextEditingController();
+
+  final _relationshipController = TextEditingController();
+  final _kissDateController = TextEditingController();
+
+  final _observationsController = TextEditingController();
 
   @override
   void dispose() {
-    _nombreController.dispose();
-    _fechaController.dispose();
-    _relacionController.dispose();
-    _observacionesController.dispose();
+    _nameController.dispose();
+    _ageController.dispose();
+    _nationalityController.dispose();
+
+    _relationshipController.dispose();
+    _kissDateController.dispose();
+    _observationsController.dispose();
+
     super.dispose();
+  }
+
+  Future<void> addToList() async {
+    peopleController.addToList(
+      userId,
+      _nameController.text,
+      int.parse(_ageController.text),
+      _nationalityController.text,
+      _relationshipController.text,
+      DateTime.parse(_kissDateController.text),
+      _observationsController.text,
+    );
   }
 
   @override
@@ -42,7 +64,7 @@ class _AddPersonState extends State<AddPerson> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                controller: _nombreController,
+                controller: _nameController,
                 decoration: const InputDecoration(labelText: 'Nombre'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -52,17 +74,31 @@ class _AddPersonState extends State<AddPerson> {
                 },
               ),
               TextFormField(
-                controller: _fechaController,
-                decoration: const InputDecoration(labelText: 'Fecha'),
+                controller: _ageController,
+                keyboardType: TextInputType.number, // Teclado numérico
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ], // Solo números
+                decoration: const InputDecoration(labelText: 'Edad'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, introduce una fecha';
+                    return 'Por favor, introduce una edad';
                   }
                   return null;
                 },
               ),
               TextFormField(
-                controller: _relacionController,
+                controller: _nationalityController,
+                decoration: const InputDecoration(labelText: 'Nacionalidad'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, introduce una nacionalidad';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _relationshipController,
                 decoration: const InputDecoration(labelText: 'Relación'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -72,7 +108,17 @@ class _AddPersonState extends State<AddPerson> {
                 },
               ),
               TextFormField(
-                controller: _observacionesController,
+                controller: _kissDateController,
+                decoration: const InputDecoration(labelText: 'Fecha del beso'),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, introduce una fecha';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _observationsController,
                 decoration: const InputDecoration(labelText: 'Observaciones'),
               ),
               Padding(
@@ -83,6 +129,7 @@ class _AddPersonState extends State<AddPerson> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Procesando datos')),
                       );
+                      addToList();
                     }
                   },
                   child: const Text('Añadir a la lista'),
