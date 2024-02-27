@@ -7,7 +7,11 @@ class UserController{
     return await db.users();
   }
 
-  Future<List<Map<String, dynamic>>> addToList(String name, int age, String nationality, String relationship, DateTime kissDate, String observations) async{
-    return await db.addToList(name, age, nationality, relationship, kissDate, observations);
+  Future<List<Map<String, dynamic>>> addUser(String name, String email, String password) async{
+    return await db.addUser(name, email, password);
+  }
+
+  Future<int> login(String email, String password) async{
+    return await db.login(email, password);
   }
 }

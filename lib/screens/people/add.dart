@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kissdate/screens/people/list.dart';
+import 'package:flutter/services.dart';
+import 'package:kissdate/root.dart';
 
 // Añadir una nueva persona a la lista
 
@@ -38,11 +39,11 @@ class _AddPersonState extends State<AddPerson> {
   }
 
   Future<void> addToList() async {
-    userController.addToList(
+    peopleController.addToList(
+      userId,
       _nameController.text,
       int.parse(_ageController.text),
       _nationalityController.text,
-
       _relationshipController.text,
       DateTime.parse(_kissDateController.text),
       _observationsController.text,
@@ -74,6 +75,10 @@ class _AddPersonState extends State<AddPerson> {
               ),
               TextFormField(
                 controller: _ageController,
+                keyboardType: TextInputType.number, // Teclado numérico
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ], // Solo números
                 decoration: const InputDecoration(labelText: 'Edad'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {

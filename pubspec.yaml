@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
 
   postgres: ^2.6.2
+  flutter_datetime_picker: ^1.5.0
+  intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
