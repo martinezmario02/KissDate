@@ -188,16 +188,13 @@ class _AddPersonState extends State<AddPerson> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Procesando datos')),
-                          );
                           addToList();
-                          Navigator.pushNamed(
-                              context, '/lib/screens/people/list.dart');
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                                 content: Text('Persona añadida a la lista')),
                           );
+                          Navigator.pushNamed(
+                              context, '/lib/screens/people/list.dart');
                         }
                       },
                       child: const Text('Añadir a la lista'),
