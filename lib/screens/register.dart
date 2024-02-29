@@ -18,6 +18,7 @@ class _RegisterState extends State<Register> {
   final _emailController = TextEditingController();
   final _birthdayController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -25,6 +26,7 @@ class _RegisterState extends State<Register> {
     _emailController.dispose();
     _birthdayController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
 
     super.dispose();
   }
@@ -63,7 +65,8 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Correo electrónico'),
+                decoration:
+                    const InputDecoration(labelText: 'Correo electrónico'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduce tu correo electrónico';
@@ -73,7 +76,8 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 controller: _birthdayController,
-                decoration: const InputDecoration(labelText: 'Fecha de nacimiento'),
+                decoration:
+                    const InputDecoration(labelText: 'Fecha de nacimiento'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduce tu fecha de nacimiento';
@@ -84,9 +88,27 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Contraseña'),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduce tu contraseña';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _confirmPasswordController,
+                decoration:
+                    const InputDecoration(labelText: 'Confirmar Contraseña'),
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, confirma tu contraseña';
+                  }
+                  if (value != _passwordController.text) {
+                    return 'Las contraseñas no coinciden';
                   }
                   return null;
                 },
@@ -97,6 +119,10 @@ class _RegisterState extends State<Register> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       register();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Registro completado con éxito')),
+                      );
                       Navigator.pop(context);
                     }
                   },

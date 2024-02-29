@@ -66,30 +66,31 @@ class _AddPersonState extends State<AddPerson> {
     );
   }
 
-  Future<void> selectDate(BuildContext context) async{
+  Future<void> selectDate(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme.copyWith(primary: const Color.fromARGB(255, 243, 105, 137), onPrimary: Colors.white); // color para el calendario
+    final ColorScheme colorScheme = theme.colorScheme.copyWith(
+        primary: const Color.fromARGB(255, 243, 105, 137),
+        onPrimary: Colors.white); // color para el calendario
 
     final DateTime? fechaSeleccionada = await showDatePicker(
-      context: context, 
-      initialDate: date, 
-      firstDate: DateTime(2024), 
-      lastDate: DateTime(2050),
-      // Para cambiar el color del calendario:
-      builder: (BuildContext context, Widget? child){
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: colorScheme,
-          ), 
-          child: child!
-        );
-      }
-    );
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(2024),
+        lastDate: DateTime(2050),
+        // Para cambiar el color del calendario:
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                colorScheme: colorScheme,
+              ),
+              child: child!);
+        });
 
-    if(fechaSeleccionada != null && fechaSeleccionada != date){
+    if (fechaSeleccionada != null && fechaSeleccionada != date) {
       setState(() {
         date = fechaSeleccionada;
-        _kissDateController.text = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+        _kissDateController.text =
+            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
       });
     }
   }
@@ -97,111 +98,112 @@ class _AddPersonState extends State<AddPerson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.titulo),
-      ),
-      body: SingleChildScrollView( 
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(labelText: 'Nombre'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, introduce un nombre';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _ageController,
-                  keyboardType: TextInputType.number, // Teclado numérico
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ], // Solo números
-                  decoration: const InputDecoration(labelText: 'Edad'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, introduce una edad';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _nationalityController,
-                  decoration: const InputDecoration(labelText: 'Nacionalidad'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, introduce una nacionalidad';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _relationshipController,
-                  decoration: const InputDecoration(labelText: 'Relación'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, introduce una relación';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _kissDateController,
-                  onTap: () => selectDate(context),
-                  decoration: const InputDecoration(labelText: 'Fecha del beso'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, introduce una fecha';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _observationsController,
-                  decoration: const InputDecoration(labelText: 'Observaciones'),
-                ),
-                _image != null
-                  ? Image.file(
-                      _image!,
-                      width: 200,
-                      height: 200,
-                    )
-                  : Container(),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _selectImageFromGallery,
-                child: const Text('Seleccionar Imagen'),
-              ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Procesando datos')),
-                        );
-                        addToList();
-                        Navigator.pushNamed(context, '/lib/screens/people/list.dart');
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Persona añadida a la lista')),
-                        );
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.titulo),
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(labelText: 'Nombre'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce un nombre';
                       }
+                      return null;
                     },
-                    child: const Text('Añadir a la lista'),
                   ),
-                ),
-              ],
+                  TextFormField(
+                    controller: _ageController,
+                    keyboardType: TextInputType.number, // Teclado numérico
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly
+                    ], // Solo números
+                    decoration: const InputDecoration(labelText: 'Edad'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce una edad';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _nationalityController,
+                    decoration:
+                        const InputDecoration(labelText: 'Nacionalidad'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce una nacionalidad';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _relationshipController,
+                    decoration: const InputDecoration(labelText: 'Relación'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce una relación';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _kissDateController,
+                    onTap: () => selectDate(context),
+                    decoration:
+                        const InputDecoration(labelText: 'Fecha del beso'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce una fecha';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _observationsController,
+                    decoration:
+                        const InputDecoration(labelText: 'Observaciones'),
+                  ),
+                  _image != null
+                      ? Image.file(
+                          _image!,
+                          width: 200,
+                          height: 200,
+                        )
+                      : Container(),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: _selectImageFromGallery,
+                    child: const Text('Seleccionar Imagen'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          addToList();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Persona añadida a la lista')),
+                          );
+                          Navigator.pushNamed(
+                              context, '/lib/screens/people/list.dart');
+                        }
+                      },
+                      child: const Text('Añadir a la lista'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
