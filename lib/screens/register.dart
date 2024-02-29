@@ -63,7 +63,8 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Correo electrónico'),
+                decoration:
+                    const InputDecoration(labelText: 'Correo electrónico'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduce tu correo electrónico';
@@ -73,7 +74,8 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 controller: _birthdayController,
-                decoration: const InputDecoration(labelText: 'Fecha de nacimiento'),
+                decoration:
+                    const InputDecoration(labelText: 'Fecha de nacimiento'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, introduce tu fecha de nacimiento';
@@ -97,6 +99,10 @@ class _RegisterState extends State<Register> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       register();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Registro completado con éxito')),
+                      );
                       Navigator.pop(context);
                     }
                   },
