@@ -85,6 +85,7 @@ class _LoginState extends State<Login> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               TextFormField(
                 controller: _emailController,
@@ -109,6 +110,7 @@ class _LoginState extends State<Login> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(

@@ -32,7 +32,6 @@ class _ListPeopleState extends State<ListPeople> {
 
   @override
   Widget build(BuildContext context) {
-    //getUsers();
     getList();
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +39,32 @@ class _ListPeopleState extends State<ListPeople> {
         title: Text(widget.titulo),
       ),
       body: Center(
-          //child: Text('Lista de personas'),
-          child: Text(list.toString())),
+        //child: Text('Lista de personas'),
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index){
+            DateTime date = list[index]['list']['kiss_date'];
+            String dateFormat = '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString()}';
+            return Padding(
+              padding: const EdgeInsets.all(10.0),
+              child:Container(
+                height: 70,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 157, 180),
+                  borderRadius: BorderRadius.circular(20), // Ajusta el radio según sea necesario
+                ),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 12),
+                    Text(list[index]['list']['name'], style: const TextStyle(fontFamily: 'Cuerpo', fontSize: 18)),
+                    Text(dateFormat)
+                  ]
+                ),
+              )
+            );
+          }     
+        ),
+      )
     );
   }
 }
