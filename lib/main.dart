@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'screens/menu.dart';
-import 'screens/people/add.dart';
-import 'screens/people/list.dart';
-import 'screens/resume.dart';
+import 'screens/components/add.dart';
+import 'screens/components/list.dart';
+import 'screens/components/statistics.dart';
+import 'screens/register.dart';
 import 'root.dart';
 
 void main() {
@@ -118,6 +119,17 @@ class _LoginState extends State<Login> {
                   },
                   child: const Text('Iniciar sesión'),
                 ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Register(titulo: 'Registro'),
+                    ),
+                  );
+                },
+                child: const Text('¿No estás registrado? Regístrate aquí'),
               ),
             ],
           ),

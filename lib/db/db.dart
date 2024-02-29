@@ -42,9 +42,9 @@ class DB {
 
   // Añadir un usuario:
   Future<List<Map<String, dynamic>>> addUser(
-      String name, String email, String password) async {
+      String name, String email, DateTime birthday, String password) async {
     return await ejecutar(
-        "insert into users (name, mail, password) values ('$name', '$email', '$password')");
+        "insert into users (name, mail, birthday, password) values ('$name', '$email', '$birthday', '$password')");
   }
 
   // Inicio de sesión:

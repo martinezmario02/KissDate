@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// RESUMEN / ESTADÍSTICAS
 
-// Resumen / Estadísticas
+import 'package:flutter/material.dart';
 
 class Summary extends StatefulWidget {
   const Summary({Key? key, required this.titulo}) : super(key: key);
