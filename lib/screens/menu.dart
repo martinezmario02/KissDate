@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+// MENU PRINCIPAL
 
-// Pantalla de inicio --> Menu principal
+import 'package:flutter/material.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({super.key, required this.titulo});

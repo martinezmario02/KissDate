@@ -1,8 +1,8 @@
+// LISTA DE PERSONAS
+
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
-
-// Mostrar lista de personas
 class ListPeople extends StatefulWidget {
   const ListPeople({Key? key, required this.titulo}) : super(key: key);
 

@@ -1,8 +1,8 @@
+// AÑADIR UNA PERSONA A LA LISTA
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kissdate/root.dart';
-
-// Añadir una nueva persona a la lista
 
 class AddPerson extends StatefulWidget {
   const AddPerson({Key? key, required this.titulo}) : super(key: key);
