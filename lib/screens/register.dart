@@ -67,12 +67,7 @@ class _RegisterState extends State<Register> {
                 controller: _emailController,
                 decoration:
                     const InputDecoration(labelText: 'Correo electrónico'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, introduce tu correo electrónico';
-                  }
-                  return null;
-                },
+                validator: validateEmail,
               ),
               TextFormField(
                 controller: _birthdayController,
@@ -90,12 +85,7 @@ class _RegisterState extends State<Register> {
                 decoration: const InputDecoration(labelText: 'Contraseña'),
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, introduce tu contraseña';
-                  }
-                  return null;
-                },
+                validator: validatePassword,
               ),
               TextFormField(
                 controller: _confirmPasswordController,
@@ -136,3 +126,32 @@ class _RegisterState extends State<Register> {
     );
   }
 }
+
+  // Validaciones
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, introduce tu correo electrónico';
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+    if (!emailRegex.hasMatch(value)) {
+      return 'Por favor, introduce un correo electrónico válido';
+    }
+
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, introduce tu contraseña';
+    }
+
+    final passwordRegex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+
+    if (!passwordRegex.hasMatch(value)) {
+      return 'La contraseña debe tener al menos 8 caracteres y contener al menos una letra y un número';
+    }
+
+    return null;
+  }
