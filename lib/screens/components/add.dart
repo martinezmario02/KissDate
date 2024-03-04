@@ -6,6 +6,11 @@ import 'package:kissdate/root.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+// Nacionalidad
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
+import 'package:country_pickers/utils/utils.dart';
+
 class AddPerson extends StatefulWidget {
   const AddPerson({Key? key, required this.titulo}) : super(key: key);
 
@@ -66,6 +71,7 @@ class _AddPersonState extends State<AddPerson> {
     );
   }
 
+  // Calendario para seleccionar la fecha del beso
   Future<void> selectDate(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme.copyWith(
@@ -130,19 +136,32 @@ class _AddPersonState extends State<AddPerson> {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, introduce una edad';
                       }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _nationalityController,
-                    decoration:
-                        const InputDecoration(labelText: 'Nacionalidad'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Por favor, introduce una nacionalidad';
+                      final age = int.tryParse(value);
+                      if (age == null || age <= 0) {
+                        return 'La edad debe ser un número entero positivo';
                       }
                       return null;
                     },
+                  ),
+                  InputDecorator(
+                    decoration: const InputDecoration(
+                      labelText: 'Nacionalidad',
+                    ),
+                    child: CountryPickerDropdown(
+                      initialValue: 'ES',
+                      itemBuilder: (Country country) {
+                        return Row(
+                          children: <Widget>[
+                            CountryPickerUtils.getDefaultFlagImage(country),
+                            const SizedBox(width: 8),
+                            Text(country.name),
+                          ],
+                        );
+                      },
+                      onValuePicked: (Country country) {
+                        _nationalityController.text = country.name;
+                      },
+                    ),
                   ),
                   TextFormField(
                     controller: _relationshipController,
