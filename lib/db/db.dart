@@ -82,4 +82,18 @@ class DB {
   Future<List<Map<String, dynamic>>> list(int userId) async {
     return await ejecutar("select * from list where user_id=$userId");
   }
+
+  // Eliminar una persona de la lista:
+  Future<List<Map<String, dynamic>>> deleteFromList(int personId) async {
+    return await ejecutar("delete from list where person_id=$personId");
+  }
+
+  // Devolver una persona de la lista:
+  Future<Map<String, dynamic>> person(int personId) async {
+    List<Map<String, dynamic>> result =
+        await ejecutar("select * from list where person_id=$personId");
+    return result.isNotEmpty
+        ? result[0]
+        : {}; // Devolver el primer elemento si hay resultados, de lo contrario, devolver un mapa vacío
+  }
 }

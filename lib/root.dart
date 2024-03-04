@@ -7,3 +7,4 @@ final UserController userController = UserController();
 final ListController peopleController = ListController();
 
 int userId = -1;
+int personId = -1;

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class Summary extends StatefulWidget {
-  const Summary({Key? key, required this.titulo}) : super(key: key);
+  const Summary({super.key, required this.titulo});
 
   final String titulo;
 

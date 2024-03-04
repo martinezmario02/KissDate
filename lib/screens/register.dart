@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key, required this.titulo}) : super(key: key);
+  const Register({super.key, required this.titulo});
 
   final String titulo;
 

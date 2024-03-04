@@ -11,7 +11,7 @@ void main() {
 }
 
 class KissDate extends StatelessWidget {
-  const KissDate({Key? key});
+  const KissDate({super.key});
 
   @override
   Widget build(BuildContext context) {
