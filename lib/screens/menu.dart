@@ -32,7 +32,6 @@ class _MainMenuState extends State<MainMenu> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/lib/screens/people/add.dart');
                   },
-                  // child: const Text('Añadir a la lista'),
                   child: Row(
                     children: [
                       const SizedBox(width: 15),
