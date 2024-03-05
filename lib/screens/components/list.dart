@@ -3,7 +3,7 @@ import 'package:kissdate/root.dart';
 import 'package:kissdate/screens/profile.dart';
 
 class ListPeople extends StatefulWidget {
-  const ListPeople({Key? key, required this.titulo});
+  const ListPeople({super.key, required this.titulo});
 
   final String titulo;
 
@@ -103,14 +103,14 @@ class _ListPeopleState extends State<ListPeople> {
                                       TextButton(
                                         onPressed: (){
                                           Navigator.of(context).pop();
-                                        }, 
+                                        },
                                         child: const Text('Cancelar')
                                       ),
                                       TextButton(
                                         onPressed: (){
                                           deleteFromList(list[index]['list']['person_id']);
                                           Navigator.of(context).pop();
-                                        }, 
+                                        },
                                         child: const Text('Confirmar')
                                       )
                                     ],

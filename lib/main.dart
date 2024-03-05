@@ -38,7 +38,7 @@ class KissDate extends StatelessWidget {
 
 // Inicio de sesión
 class Login extends StatefulWidget {
-  const Login({Key? key, required this.titulo}) : super(key: key);
+  const Login({super.key, required this.titulo});
 
   final String titulo;
 
