@@ -3,7 +3,7 @@ import 'package:kissdate/root.dart';
 import 'package:kissdate/screens/profile.dart';
 
 class ListPeople extends StatefulWidget {
-  const ListPeople({Key? key, required this.titulo});
+  const ListPeople({super.key, required this.titulo});
 
   final String titulo;
 
@@ -36,7 +36,7 @@ class _ListPeopleState extends State<ListPeople> {
     });
   }
 
-  Future<void> deleteFromList(int id) async{
+  Future<void> deleteFromList(int id) async {
     await peopleController.deleteFromList(id);
     getList();
   }
@@ -44,6 +44,7 @@ class _ListPeopleState extends State<ListPeople> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.titulo),
@@ -85,7 +86,8 @@ class _ListPeopleState extends State<ListPeople> {
                             children: [
                               Text(
                                 list[index]['list']['name'],
-                                style: const TextStyle(fontFamily: 'Cuerpo', fontSize: 18),
+                                style: const TextStyle(
+                                    fontFamily: 'Cuerpo', fontSize: 18),
                               ),
                               Text(dateFormat),
                             ],
@@ -94,29 +96,28 @@ class _ListPeopleState extends State<ListPeople> {
                             icon: const Icon(Icons.delete),
                             onPressed: () {
                               showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    title: const Text('CONFIRMACIÓN'),
-                                    content: const Text('¿Desea eliminar esta persona de la lista?'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: (){
-                                          Navigator.of(context).pop();
-                                        }, 
-                                        child: const Text('Cancelar')
-                                      ),
-                                      TextButton(
-                                        onPressed: (){
-                                          deleteFromList(list[index]['list']['person_id']);
-                                          Navigator.of(context).pop();
-                                        }, 
-                                        child: const Text('Confirmar')
-                                      )
-                                    ],
-                                  );
-                                }
-                              );
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('CONFIRMACIÓN'),
+                                      content: const Text(
+                                          '¿Desea eliminar esta persona de la lista?'),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Cancelar')),
+                                        TextButton(
+                                            onPressed: () {
+                                              deleteFromList(list[index]['list']
+                                                  ['person_id']);
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text('Confirmar'))
+                                      ],
+                                    );
+                                  });
                             },
                           ),
                         ],

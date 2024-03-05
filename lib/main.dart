@@ -38,7 +38,7 @@ class KissDate extends StatelessWidget {
 
 // Inicio de sesión
 class Login extends StatefulWidget {
-  const Login({Key? key, required this.titulo}) : super(key: key);
+  const Login({super.key, required this.titulo});
 
   final String titulo;
 
@@ -76,6 +76,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Inicio de sesión'),

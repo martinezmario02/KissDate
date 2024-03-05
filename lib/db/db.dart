@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:postgres/postgres.dart';
 
 class DB {
@@ -30,7 +31,9 @@ class DB {
       resultado = await conexion!.mappedResultsQuery(sentencia);
       return resultado;
     } catch (e) {
-      print('ERROR: $e');
+      if (kDebugMode) {
+        print('ERROR: $e');
+      }
       return [];
     }
   }
