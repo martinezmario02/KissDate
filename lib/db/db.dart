@@ -84,8 +84,8 @@ class DB {
   }
 
   // Eliminar una persona de la lista:
-  Future<List<Map<String, dynamic>>> deleteFromList(int personId) async {
-    return await ejecutar("delete from list where person_id=$personId");
+  Future<void> deleteFromList(int personId) async {
+    await ejecutar("delete from list where person_id=$personId");
   }
 
   // Devolver una persona de la lista:

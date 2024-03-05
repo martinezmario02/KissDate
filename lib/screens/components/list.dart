@@ -36,6 +36,11 @@ class _ListPeopleState extends State<ListPeople> {
     });
   }
 
+  Future<void> deleteFromList(int id) async{
+    await peopleController.deleteFromList(id);
+    getList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,44 +57,70 @@ class _ListPeopleState extends State<ListPeople> {
                 '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString()}';
             return Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  personId = list[index]['list']['person_id'];
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Profile(),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    personId = list[index]['list']['person_id'];
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Profile(),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    color: const Color.fromARGB(255, 255, 157, 180),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  );
-                },
-                child: Card(
-                  color: const Color.fromARGB(255, 255, 157, 180),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              list[index]['list']['name'],
-                              style: const TextStyle(fontFamily: 'Cuerpo', fontSize: 18),
-                            ),
-                            Text(dateFormat),
-                          ],
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-                            // Implementa la acción al hacer clic en el botón de eliminar aquí
-                          },
-                        ),
-                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                list[index]['list']['name'],
+                                style: const TextStyle(fontFamily: 'Cuerpo', fontSize: 18),
+                              ),
+                              Text(dateFormat),
+                            ],
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context){
+                                  return AlertDialog(
+                                    title: const Text('CONFIRMACIÓN'),
+                                    content: const Text('¿Desea eliminar esta persona de la lista?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: (){
+                                          Navigator.of(context).pop();
+                                        }, 
+                                        child: const Text('Cancelar')
+                                      ),
+                                      TextButton(
+                                        onPressed: (){
+                                          deleteFromList(list[index]['list']['person_id']);
+                                          Navigator.of(context).pop();
+                                        }, 
+                                        child: const Text('Confirmar')
+                                      )
+                                    ],
+                                  );
+                                }
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

@@ -80,7 +80,7 @@ class _AddPersonState extends State<AddPerson> {
     final DateTime? fechaSeleccionada = await showDatePicker(
         context: context,
         initialDate: date,
-        firstDate: DateTime(2024),
+        firstDate: DateTime(1950),
         lastDate: DateTime(2050),
         // Para cambiar el color del calendario:
         builder: (BuildContext context, Widget? child) {

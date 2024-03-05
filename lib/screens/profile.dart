@@ -26,11 +26,10 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print(person);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Perfil de ${person['name'] ?? ''}'),
+        title: Text('Perfil de ${person['list']['name'] ?? ''}'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -38,27 +37,27 @@ class _ProfileState extends State<Profile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Nombre: ${person['name'] ?? ''}',
+              'Nombre: ${person['list']['name'] ?? ''}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
             Text(
-              'Edad: ${person['age'] ?? ''}',
+              'Edad: ${person['list']['age'] ?? ''}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
             Text(
-              'Nacionalidad: ${person['nationality'] ?? ''}',
+              'Nacionalidad: ${person['list']['nationality'] ?? ''}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
             Text(
-              'Relación: ${person['relationship'] ?? ''}',
+              'Relación: ${person['list']['relationship'] ?? ''}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),
             Text(
-              'Fecha del beso: ${person['kiss_date'] != null ? formatDate(person['kiss_date']) : ''}',
+              'Fecha del beso: ${person['list']['kiss_date'] != null ? formatDate(person['kiss_date']) : ''}',
               style: const TextStyle(fontSize: 18),
             ),
           ],

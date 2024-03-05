@@ -20,6 +20,8 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  DateTime date = DateTime.now();
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -38,6 +40,36 @@ class _RegisterState extends State<Register> {
       DateTime.parse(_birthdayController.text),
       _passwordController.text,
     );
+  }
+
+  // Calendario para seleccionar la fecha del beso
+  Future<void> selectDate(BuildContext context) async {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme.copyWith(
+        primary: const Color.fromARGB(255, 243, 105, 137),
+        onPrimary: Colors.white); // color para el calendario
+
+    final DateTime? fechaSeleccionada = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(1950),
+        lastDate: DateTime(2050),
+        // Para cambiar el color del calendario:
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+              data: ThemeData.light().copyWith(
+                colorScheme: colorScheme,
+              ),
+              child: child!);
+        });
+
+    if (fechaSeleccionada != null && fechaSeleccionada != date) {
+      setState(() {
+        date = fechaSeleccionada;
+        _birthdayController.text =
+            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+      });
+    }
   }
 
   @override
@@ -71,6 +103,7 @@ class _RegisterState extends State<Register> {
               ),
               TextFormField(
                 controller: _birthdayController,
+                onTap: () => selectDate(context),
                 decoration:
                     const InputDecoration(labelText: 'Fecha de nacimiento'),
                 validator: (value) {

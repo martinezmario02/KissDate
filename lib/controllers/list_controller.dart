@@ -19,8 +19,8 @@ class ListController {
     return await db.list(userId);
   }
 
-  Future<List<Map<String, dynamic>>> deleteFromList(int personId) async {
-    return await db.deleteFromList(personId);
+  Future<void> deleteFromList(int personId) async {
+    await db.deleteFromList(personId);
   }
 
   Future<Map<String, dynamic>> person(int personId) async {
