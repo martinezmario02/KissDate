@@ -9,10 +9,9 @@ import 'dart:io';
 // Nacionalidad
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
-import 'package:country_pickers/utils/utils.dart';
 
 class AddPerson extends StatefulWidget {
-  const AddPerson({Key? key, required this.titulo}) : super(key: key);
+  const AddPerson({super.key, required this.titulo});
 
   final String titulo;
 
