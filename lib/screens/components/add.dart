@@ -103,6 +103,7 @@ class _AddPersonState extends State<AddPerson> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: Text(widget.titulo),
@@ -146,20 +147,37 @@ class _AddPersonState extends State<AddPerson> {
                     decoration: const InputDecoration(
                       labelText: 'Nacionalidad',
                     ),
-                    child: CountryPickerDropdown(
-                      initialValue: 'ES',
-                      itemBuilder: (Country country) {
-                        return Row(
-                          children: <Widget>[
-                            CountryPickerUtils.getDefaultFlagImage(country),
-                            const SizedBox(width: 8),
-                            Text(country.name),
-                          ],
-                        );
-                      },
-                      onValuePicked: (Country country) {
-                        _nationalityController.text = country.name;
-                      },
+                    child: SizedBox(
+                      height: 50, // Ajusta la altura según sea necesario
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: <Widget>[
+                          CountryPickerDropdown(
+                            initialValue: 'ES',
+                            itemBuilder: (Country country) {
+                              String countryName = country.name;
+                              if (countryName.length >= 30) {
+                                countryName =
+                                    '${countryName.substring(0, 30)}...';
+                              }
+                              return Tooltip(
+                                message: country.name,
+                                child: Row(
+                                  children: <Widget>[
+                                    CountryPickerUtils.getDefaultFlagImage(
+                                        country),
+                                    const SizedBox(width: 8),
+                                    Text(countryName),
+                                  ],
+                                ),
+                              );
+                            },
+                            onValuePicked: (Country country) {
+                              _nationalityController.text = country.name;
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   TextFormField(
