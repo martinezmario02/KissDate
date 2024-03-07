@@ -10,9 +10,10 @@ class ListController {
       String nationality,
       String relationship,
       DateTime kissDate,
-      String observations) async {
+      String observations,
+      String gender) async {
     return await db.addToList(
-        userId, name, age, nationality, relationship, kissDate, observations);
+        userId, name, age, nationality, relationship, kissDate, observations, gender);
   }
 
   Future<List<Map<String, dynamic>>> list(int userId) async {
@@ -25,5 +26,9 @@ class ListController {
 
   Future<Map<String, dynamic>> person(int personId) async {
     return await db.person(personId);
+  }
+
+  Future<Map<String, double?>> genderStatistics(int userId) async {
+    return await db.genderStatistics(userId);
   }
 }

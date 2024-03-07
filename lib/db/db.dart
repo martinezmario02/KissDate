@@ -23,13 +23,13 @@ class DB {
   // Función para ejecuciones de sentencias bd:
   Future<List<Map<String, Map<String, dynamic>>>> ejecutar(
       String sentencia) async {
-    List<Map<String, Map<String, dynamic>>> resultado = [];
+    List<Map<String, Map<String, dynamic>>> result = [];
 
     await conectar();
 
     try {
-      resultado = await conexion!.mappedResultsQuery(sentencia);
-      return resultado;
+      result = await conexion!.mappedResultsQuery(sentencia);
+      return result;
     } catch (e) {
       if (kDebugMode) {
         print('ERROR: $e');
@@ -52,13 +52,13 @@ class DB {
 
   // Inicio de sesión:
   Future<int> login(String email, String password) async {
-    var resultado = [];
-    resultado = await ejecutar(
+    var result = [];
+    result = await ejecutar(
         "select user_id from users where mail='$email' and password='$password'");
-    if (resultado.isEmpty) {
+    if (result.isEmpty) {
       return -1;
     } else {
-      return resultado[0]['users']['user_id'];
+      return result[0]['users']['user_id'];
     }
   }
 
@@ -76,9 +76,10 @@ class DB {
       String nationality,
       String relationship,
       DateTime kissDate,
-      String observations) async {
+      String observations,
+      String gender) async {
     return await ejecutar(
-        "insert into list (user_id, name, age, nationality, relationship, kiss_date, observations) values ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations')");
+        "insert into list (user_id, name, age, nationality, relationship, kiss_date, observations, gender) values ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations', '$gender')");
   }
 
   // Devolver todas las personas de la lista asociado a un usuario:
@@ -97,6 +98,57 @@ class DB {
         await ejecutar("select * from list where person_id=$personId");
     return result.isNotEmpty
         ? result[0]
-        : {}; // Devolver el primer elemento si hay resultados, de lo contrario, devolver un mapa vacío
+        : {}; // Devolver el primer elemento si hay results, de lo contrario, devolver un mapa vacío
+  }
+
+  /////////////////////////////////////////////////////////////////
+  ///                                                           ///
+  ///     FUNCIONES PARA LAS ESTADÍSTICAS                       ///
+  ///                                                           ///
+  /////////////////////////////////////////////////////////////////
+
+  // Género
+  Future<Map<String, double?>> genderStatistics(int userId) async {
+    var result = <String, double?>{};
+
+    await conectar();
+
+    try {
+      // Consulta para contar hombres
+      var hombresResult = await conexion!.query(
+        "SELECT COUNT(*) FROM list WHERE user_id = $userId AND gender = 'hombre'",
+      );
+      var hombresCount = double.tryParse(hombresResult.first[0].toString());
+      result['hombres'] = hombresCount;
+
+      // Consulta para contar mujeres
+      var mujeresResult = await conexion!.query(
+        "SELECT COUNT(*) FROM list WHERE user_id = $userId AND gender = 'mujer'",
+      );
+      var mujeresCount = double.tryParse(mujeresResult.first[0].toString());
+      result['mujeres'] = mujeresCount;
+
+      // Consulta para contar personas no binarias
+      var noBinarioResult = await conexion!.query(
+        "SELECT COUNT(*) FROM list WHERE user_id = $userId AND gender = 'no binario'",
+      );
+      var noBinarioCount = double.tryParse(noBinarioResult.first[0].toString());
+      result['noBinario'] = noBinarioCount;
+
+      // Consulta para contar personas sin especificar género
+      var sinEspecificarResult = await conexion!.query(
+        "SELECT COUNT(*) FROM list WHERE user_id = $userId AND gender = 'sin especificar'",
+      );
+      var sinEspecificarCount =
+          double.tryParse(sinEspecificarResult.first[0].toString());
+      result['sinEspecificar'] = sinEspecificarCount;
+
+      return result;
+    } catch (e) {
+      if (kDebugMode) {
+        print('ERROR: $e');
+      }
+      return {};
+    }
   }
 }
