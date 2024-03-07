@@ -48,6 +48,11 @@ class _ProfileState extends State<Profile> {
             ),
             const SizedBox(height: 10),
             Text(
+              'Género: ${person['list']['gender'] ?? ''}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 10),
+            Text(
               'Nacionalidad: ${person['list']['nationality'] ?? ''}',
               style: const TextStyle(fontSize: 18),
             ),

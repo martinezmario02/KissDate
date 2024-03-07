@@ -25,6 +25,7 @@ class _AddPersonState extends State<AddPerson> {
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
   final _nationalityController = TextEditingController();
+  final _genderController = TextEditingController();
 
   final _relationshipController = TextEditingController();
   final _kissDateController = TextEditingController();
@@ -50,6 +51,7 @@ class _AddPersonState extends State<AddPerson> {
     _nameController.dispose();
     _ageController.dispose();
     _nationalityController.dispose();
+    _genderController.dispose();
 
     _relationshipController.dispose();
     _kissDateController.dispose();
@@ -67,6 +69,7 @@ class _AddPersonState extends State<AddPerson> {
       _relationshipController.text,
       DateTime.parse(_kissDateController.text),
       _observationsController.text,
+      _genderController.text,
     );
   }
 
@@ -127,10 +130,10 @@ class _AddPersonState extends State<AddPerson> {
                   ),
                   TextFormField(
                     controller: _ageController,
-                    keyboardType: TextInputType.number, // Teclado numérico
+                    keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly
-                    ], // Solo números
+                    ],
                     decoration: const InputDecoration(labelText: 'Edad'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -143,12 +146,22 @@ class _AddPersonState extends State<AddPerson> {
                       return null;
                     },
                   ),
+                  TextFormField(
+                    controller: _genderController,
+                    decoration: const InputDecoration(labelText: 'Género'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, introduce un género';
+                      }
+                      return null;
+                    },
+                  ),
                   InputDecorator(
                     decoration: const InputDecoration(
                       labelText: 'Nacionalidad',
                     ),
                     child: SizedBox(
-                      height: 50, // Ajusta la altura según sea necesario
+                      height: 50,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: <Widget>[
