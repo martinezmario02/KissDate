@@ -1,25 +1,23 @@
-// AÑADIR UNA PERSONA A LA LISTA
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kissdate/root.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-
-// Nacionalidad
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 
+/// Widget to add a person to the list.
 class AddPerson extends StatefulWidget {
   const AddPerson({super.key, required this.titulo});
 
+  /// Title of the widget.
   final String titulo;
 
   @override
   State<AddPerson> createState() => _AddPersonState();
 }
 
-// Formulario para incluir datos sobre una persona
+/// State of the widget [AddPerson].
 class _AddPersonState extends State<AddPerson> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -35,6 +33,7 @@ class _AddPersonState extends State<AddPerson> {
   DateTime date = DateTime.now();
   File? _image;
 
+  /// Select an image from the gallery.
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
     final pickedImage = await picker.getImage(source: ImageSource.gallery);
@@ -60,6 +59,7 @@ class _AddPersonState extends State<AddPerson> {
     super.dispose();
   }
 
+  /// Add a person to the list.
   Future<void> addToList() async {
     peopleController.addToList(
       userId,
@@ -73,7 +73,7 @@ class _AddPersonState extends State<AddPerson> {
     );
   }
 
-  // Calendario para seleccionar la fecha del beso
+  /// Select a date from a calendar.
   Future<void> selectDate(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme.copyWith(
@@ -131,9 +131,7 @@ class _AddPersonState extends State<AddPerson> {
                   TextFormField(
                     controller: _ageController,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: const InputDecoration(labelText: 'Edad'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {

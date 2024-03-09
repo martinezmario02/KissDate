@@ -1,25 +1,26 @@
-// RESUMEN / ESTADÍSTICAS
-
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kissdate/root.dart';
 
+/// Widget to show the summary of the list.
 class Summary extends StatefulWidget {
   const Summary({super.key, required this.titulo});
 
+  /// Title of the widget.
   final String titulo;
 
   @override
   State<Summary> createState() => _SummaryState();
 }
 
+/// State of the widget [Summary].
 class _SummaryState extends State<Summary> {
   late Future<Map<String, double?>> _statsFuture;
 
   @override
   void initState() {
     super.initState();
-    _statsFuture = peopleController.genderStatistics(userId);
+    _statsFuture = statsController.genderStatistics(userId);
   }
 
   @override
@@ -47,7 +48,7 @@ class _SummaryState extends State<Summary> {
                     PieChartSectionData(
                       color: const Color.fromARGB(255, 177, 220, 255),
                       value: stats['hombres'],
-                      title: 'Hombres (${stats['hombres']!.toInt()})' ,
+                      title: 'Hombres (${stats['hombres']!.toInt()})',
                       radius: 100,
                     ),
                     PieChartSectionData(
