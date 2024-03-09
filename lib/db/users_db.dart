@@ -1,13 +1,11 @@
-import 'package:kissdate/db/users_db.dart';
+import 'db.dart';
 
-/// Instance of the database for users.
-UserDB db = UserDB();
+/// Class that represents the database for users.
+class UserDB extends DB{
 
-/// Controller for users.
-class UserController {
   /// Get the list of users.
   Future<List<Map<String, dynamic>>> users() async {
-    return await db.users();
+    return await ejecutar("select * from users");
   }
 
   /// Add a user.
@@ -18,7 +16,8 @@ class UserController {
   /// [password] - Password of the user.
   Future<List<Map<String, dynamic>>> addUser(
       String name, String email, DateTime birthday, String password) async {
-    return await db.addUser(name, email, birthday, password);
+    return await ejecutar(
+        "insert into users (name, mail, birthday, password) values ('$name', '$email', '$birthday', '$password')");
   }
 
   /// Login a user.
@@ -28,6 +27,13 @@ class UserController {
   ///
   /// Returns the identifier of the user if the login is successful, -1 otherwise.
   Future<int> login(String email, String password) async {
-    return await db.login(email, password);
+    var result = [];
+    result = await ejecutar(
+        "select user_id from users where mail='$email' and password='$password'");
+    if (result.isEmpty) {
+      return -1;
+    } else {
+      return result[0]['users']['user_id'];
+    }
   }
 }

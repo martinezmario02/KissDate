@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 import 'package:kissdate/screens/profile.dart';
 
+/// Widget to list people.
 class ListPeople extends StatefulWidget {
   const ListPeople({super.key, required this.titulo});
 
+  /// Title of the widget.
   final String titulo;
 
   @override
   State<ListPeople> createState() => _ListPeopleState();
 }
 
+/// State of the widget [ListPeople].
 class _ListPeopleState extends State<ListPeople> {
   var users = [];
   var list = [];
@@ -21,6 +24,7 @@ class _ListPeopleState extends State<ListPeople> {
     getUsers();
   }
 
+  /// Get the list of users.
   Future<void> getUsers() async {
     var u = await userController.users();
     setState(() {
@@ -29,6 +33,7 @@ class _ListPeopleState extends State<ListPeople> {
     getList();
   }
 
+  /// Get the list of people.
   Future<void> getList() async {
     var p = await peopleController.list(userId);
     setState(() {
@@ -36,6 +41,7 @@ class _ListPeopleState extends State<ListPeople> {
     });
   }
 
+  /// Delete a person from the list.
   Future<void> deleteFromList(int id) async {
     await peopleController.deleteFromList(id);
     getList();

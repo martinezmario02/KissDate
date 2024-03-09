@@ -1,10 +1,7 @@
-import 'package:kissdate/db/list_db.dart';
+import 'db.dart';
 
-/// Instance of the database for the list of people.
-ListDB db = ListDB();
-
-/// Controller for the list of people.
-class ListController {
+/// Class that represents the database for the list.
+class ListDB extends DB {
   /// Add a person to the list.
   ///
   /// [userId] - Identifier of the user to whom the person is associated.
@@ -24,28 +21,32 @@ class ListController {
       DateTime kissDate,
       String observations,
       String gender) async {
-    return await db.addToList(
-        userId, name, age, nationality, relationship, kissDate, observations, gender);
+    return await ejecutar(
+        "insert into list (user_id, name, age, nationality, relationship, kiss_date, observations, gender) values ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations', '$gender')");
   }
 
-  /// Get the list of people associated with a user.
+  /// Returns the list of people associated with a user.
   ///
   /// [userId] - Identifier of the user whose list is to be obtained.
   Future<List<Map<String, dynamic>>> list(int userId) async {
-    return await db.list(userId);
+    return await ejecutar("select * from list where user_id=$userId");
   }
 
   /// Delete a person from the list.
   ///
   /// [personId] - Identifier of the person to be deleted.
   Future<void> deleteFromList(int personId) async {
-    await db.deleteFromList(personId);
+    await ejecutar("delete from list where person_id=$personId");
   }
 
   /// Get the details of a person.
   ///
   /// [personId] - Identifier of the person whose details are to be obtained.
   Future<Map<String, dynamic>> person(int personId) async {
-    return await db.person(personId);
+    List<Map<String, dynamic>> result =
+        await ejecutar("select * from list where person_id=$personId");
+    return result.isNotEmpty
+        ? result[0]
+        : {};
   }
 }

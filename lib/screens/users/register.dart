@@ -1,17 +1,18 @@
-// FICHERO DE REGISTRO DE USUARIO
-
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
+/// Widget to register a user.
 class Register extends StatefulWidget {
   const Register({super.key, required this.titulo});
 
+  /// Title of the widget.
   final String titulo;
 
   @override
   State<Register> createState() => _RegisterState();
 }
 
+/// State of the widget [Register].
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -33,6 +34,7 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
+  /// Registers a new user.
   Future<void> register() async {
     userController.addUser(
       _nameController.text,
@@ -42,12 +44,12 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  // Calendario para seleccionar la fecha del beso
+  /// Shows a date picker to select the user's birthday.
   Future<void> selectDate(BuildContext context) async {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme.copyWith(
         primary: const Color.fromARGB(255, 243, 105, 137),
-        onPrimary: Colors.white); // color para el calendario
+        onPrimary: Colors.white);
 
     final DateTime? fechaSeleccionada = await showDatePicker(
         context: context,
@@ -159,9 +161,8 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
-}
 
-  // Validaciones
+  /// Validate the email format.
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, introduce tu correo electrónico';
@@ -176,6 +177,7 @@ class _RegisterState extends State<Register> {
     return null;
   }
 
+  /// Validate the password format.
   String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, introduce tu contraseña';
@@ -189,3 +191,4 @@ class _RegisterState extends State<Register> {
 
     return null;
   }
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
+/// Widget to show the profile of a person.
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -8,6 +9,7 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
+/// State of the widget [Profile].
 class _ProfileState extends State<Profile> {
   var person = {};
 
@@ -17,6 +19,7 @@ class _ProfileState extends State<Profile> {
     getProfile();
   }
 
+  /// Get the profile of the person.
   Future<void> getProfile() async {
     var p = await peopleController.person(personId);
     setState(() {
@@ -72,6 +75,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  /// Format a date to a string.
   String formatDate(DateTime? date) {
     if (date != null) {
       return '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year.toString()}';
