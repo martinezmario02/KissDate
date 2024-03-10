@@ -40,6 +40,8 @@ class _LoginState extends State<Login> {
       );
     } else {
       userId = resultado;
+      checkLoggedStatus(true);
+      isLogged = true;
       Navigator.push(
         context,
         MaterialPageRoute(

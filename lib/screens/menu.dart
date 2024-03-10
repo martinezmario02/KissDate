@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kissdate/root.dart';
 
 /// Widget to show the main menu.
 class MainMenu extends StatefulWidget {
@@ -21,6 +22,31 @@ class _MainMenuState extends State<MainMenu> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.titulo),
+        actions: [
+          isLogged
+              ? PopupMenuButton(
+                  onSelected: (value) {
+                    if (value == 'cerrar_sesion') {
+                      checkLoggedStatus(false);
+                      isLogged = false;
+                      userId = -1;
+                      Navigator.pop(context, '/lib/screens/start.dart');
+                    }
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      const PopupMenuItem(
+                        value: 'cerrar_sesion',
+                        child: ListTile(
+                          leading: Icon(Icons.exit_to_app),
+                          title: Text('Cerrar sesión'),
+                        ),
+                      ),
+                    ];
+                  },
+                )
+              : const SizedBox(),
+        ],
       ),
       body: Center(
         child: Padding(
