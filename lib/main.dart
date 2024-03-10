@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kissdate/root.dart';
+import 'screens/start.dart';
 import 'screens/menu.dart';
 import 'screens/components/add.dart';
 import 'screens/components/list.dart';
@@ -6,13 +8,16 @@ import 'screens/components/statistics.dart';
 import 'screens/users/login.dart';
 import 'screens/users/register.dart';
 
-
-void main() {
-  runApp(const KissDate());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  isLogged = await isLoggedStatus();
+  runApp(KissDate(isLogged: isLogged));
 }
 
 class KissDate extends StatelessWidget {
-  const KissDate({super.key});
+  final bool isLogged;
+
+  const KissDate({super.key, required this.isLogged});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +28,10 @@ class KissDate extends StatelessWidget {
               seedColor: const Color.fromARGB(255, 243, 105, 137)),
           useMaterial3: true,
         ),
-        home: const StartMenu(),
+        home:
+            isLogged ? const MainMenu(titulo: 'Kiss Date') : const StartMenu(),
         routes: {
+          '/lib/screens/start.dart': (context) => const StartMenu(),
           '/lib/screens/menu.dart': (context) =>
               const MainMenu(titulo: 'Kiss Date'),
           '/lib/screens/users/login.dart': (context) =>
@@ -38,87 +45,5 @@ class KissDate extends StatelessWidget {
           '/lib/screens/resume.dart': (context) =>
               const Summary(titulo: 'Resumen / Estadísticas'),
         });
-  }
-}
-
-// Tres botones: Iniciar sesión, Registrarse, Invitado
-class StartMenu extends StatefulWidget {
-  const StartMenu({super.key});
-
-  @override
-  State<StartMenu> createState() => _StartMenuState();
-}
-
-class _StartMenuState extends State<StartMenu> {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Kiss Date'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 100,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/users/login.dart');
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 15),
-                      const SizedBox(width: 15),
-                      Text('Iniciar sesión',
-                          style: TextStyle(fontSize: screenWidth * 0.05)),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: 100,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/users/register.dart');
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 15),
-                      const SizedBox(width: 15),
-                      Text('Registrarse',
-                          style: TextStyle(fontSize: screenWidth * 0.05)),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                height: 100,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/menu.dart');
-                  },
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 15),
-                      const SizedBox(width: 15),
-                      Text('Invitado',
-                          style: TextStyle(fontSize: screenWidth * 0.05)),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

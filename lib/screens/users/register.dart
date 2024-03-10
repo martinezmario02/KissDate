@@ -145,6 +145,8 @@ class _RegisterState extends State<Register> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       register();
+                      checkLoggedStatus(true);
+                      isLogged = true;
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Registro completado con éxito')),
