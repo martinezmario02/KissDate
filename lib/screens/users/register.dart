@@ -188,7 +188,7 @@ class _RegisterState extends State<Register> {
     final passwordRegex = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
 
     if (!passwordRegex.hasMatch(value)) {
-      return 'La contraseña debe tener al menos 8 caracteres y contener al menos una letra y un número';
+      return 'Debe contener al menos una letra y un número (8 caracteres mínimo)';
     }
 
     return null;
