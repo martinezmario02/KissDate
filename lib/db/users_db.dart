@@ -50,6 +50,9 @@ class UserDB extends DB {
           return -1;
         }
       } else {
+        if (storedPassword == password) {
+          return result[0]['users']['user_id'];
+        }
         return -1;
       }
     }
