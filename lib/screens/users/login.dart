@@ -42,6 +42,7 @@ class _LoginState extends State<Login> {
       userId = resultado;
       checkLoggedStatus(true);
       isLogged = true;
+      saveUserId(userId);
       Navigator.push(
         context,
         MaterialPageRoute(

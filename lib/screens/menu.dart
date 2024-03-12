@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
@@ -15,6 +16,31 @@ class MainMenu extends StatefulWidget {
 /// State of the widget [MainMenu].
 class _MainMenuState extends State<MainMenu> {
   @override
+  void initState() {
+    super.initState();
+    checkIfLoggedIn();
+  }
+
+  Future<void> checkIfLoggedIn() async {
+    try {
+      bool loggedIn = await isLoggedStatus();
+      if (loggedIn) {
+        int? id = await getUserId();
+        if (id != null) {
+          setState(() {
+            isLogged = true;
+            userId = id;
+          });
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -30,7 +56,7 @@ class _MainMenuState extends State<MainMenu> {
                       checkLoggedStatus(false);
                       isLogged = false;
                       userId = -1;
-                      Navigator.pop(context, '/lib/screens/start.dart');
+                      Navigator.pushNamed(context, '/lib/screens/start.dart');
                     }
                   },
                   itemBuilder: (BuildContext context) {
