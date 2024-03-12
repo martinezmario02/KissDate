@@ -26,3 +26,15 @@ Future<void> checkLoggedStatus(bool isLoggedIn) async {
   await prefs.setBool('isLogged', isLoggedIn);
 }
 
+/// Save the user ID.
+Future<void> saveUserId(int userId) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('userId', userId);
+}
+
+/// Get the user ID.
+Future<int?> getUserId() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  int? userId = prefs.getInt('userId');
+  return userId;
+}
