@@ -1,6 +1,6 @@
 # Workflow GitHub Actions
 
-name: CI
+name: Flutter
 
 on:
   push:
