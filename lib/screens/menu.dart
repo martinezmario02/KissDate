@@ -56,7 +56,11 @@ class _MainMenuState extends State<MainMenu> {
                       checkLoggedStatus(false);
                       isLogged = false;
                       userId = -1;
-                      Navigator.pushNamed(context, '/lib/screens/start.dart');
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context, '/lib/screens/start.dart');
+                      } else {
+                        Navigator.pushNamed(context, '/lib/screens/start.dart');
+                      }
                     }
                   },
                   itemBuilder: (BuildContext context) {
