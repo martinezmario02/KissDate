@@ -20,7 +20,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '>=3.3.0 <4.0.0'
+          flutter-version: '3.19'
 
       - name: Get packages
         run: flutter pub get
@@ -33,3 +33,7 @@ jobs:
 
       - name: Build APK
         run: flutter build apk
+
+      - name: Build IOS
+        if: runner.os == 'macos'
+        run: flutter build ios
