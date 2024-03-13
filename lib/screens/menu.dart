@@ -98,7 +98,7 @@ class _MainMenuState extends State<MainMenu> {
                           width: screenWidth * 0.16,
                           height: screenWidth * 0.16),
                       const SizedBox(width: 15),
-                      Text('Añadir a la lista',
+                      Text('Añadir persona',
                           style: TextStyle(fontSize: screenWidth * 0.05)),
                     ],
                   ),
