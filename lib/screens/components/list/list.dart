@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
-import 'package:kissdate/screens/profile.dart';
+import 'package:kissdate/screens/components/list/profile.dart';
 
 /// Widget to list people.
 class ListPeople extends StatefulWidget {
@@ -52,9 +52,38 @@ class _ListPeopleState extends State<ListPeople> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.titulo),
-      ),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.titulo),
+          actions: [
+            PopupMenuButton(
+              onSelected: (value) {
+                if (value == 'ordenar_alfabeticamente') {
+                  setState(() {
+                    list.sort((a, b) => a['list']['name']
+                        .toString()
+                        .toLowerCase()
+                        .compareTo(b['list']['name'].
+                        toString().
+                        toLowerCase()));
+                  });
+                } else if (value == 'ordenar_por_fecha') {
+                  setState(() {
+                    list.sort((a, b) => a['list']['kiss_date']
+                        .compareTo(b['list']['kiss_date']));
+                  });
+                }
+              },
+              itemBuilder: (BuildContext context) => [
+                const PopupMenuItem(
+                    value: 'ordenar_alfabeticamente',
+                    child: Text('Ordenar por nombre')),
+                const PopupMenuItem(
+                  value: 'ordenar_por_fecha',
+                  child: Text('Ordenar por fecha'),
+                ),
+              ],
+            ),
+          ]),
       body: Center(
         child: ListView.builder(
           itemCount: list.length,

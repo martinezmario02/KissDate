@@ -49,33 +49,39 @@ class _MainMenuState extends State<MainMenu> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.titulo),
         actions: [
-          isLogged
-              ? PopupMenuButton(
-                  onSelected: (value) {
-                    if (value == 'cerrar_sesion') {
-                      checkLoggedStatus(false);
-                      isLogged = false;
-                      userId = -1;
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context, '/lib/screens/start.dart');
-                      } else {
-                        Navigator.pushNamed(context, '/lib/screens/start.dart');
-                      }
-                    }
-                  },
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      const PopupMenuItem(
-                        value: 'cerrar_sesion',
-                        child: ListTile(
-                          leading: Icon(Icons.exit_to_app),
-                          title: Text('Cerrar sesión'),
-                        ),
-                      ),
-                    ];
-                  },
+          PopupMenuButton(
+            onSelected: (value) {
+              if (value == 'cerrar_sesion') {
+                checkLoggedStatus(false);
+                isLogged = false;
+                userId = -1;
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context, '/lib/screens/main.dart');
+                } else {
+                  Navigator.pushNamed(context, '/lib/screens/main.dart');
+                }
+              } else if (value == 'ajustes') {
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return [
+                const PopupMenuItem(
+                  value: 'ajustes',
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text('Ajustes'),
+                  ),
+                ),
+                const PopupMenuItem(
+                  value: 'cerrar_sesion',
+                  child: ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text('Cerrar sesión'),
+                  ),
                 )
-              : const SizedBox(),
+              ];
+            },
+          )
         ],
       ),
       body: Center(
