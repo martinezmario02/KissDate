@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
-import 'screens/menu.dart';
-import 'screens/components/add.dart';
-import 'screens/components/list/list.dart';
-import 'screens/components/statistics/gender_statistics.dart';
-import 'screens/components/statistics/statistics_menu.dart';
-import 'screens/components/statistics/age_statistics.dart';
-import 'screens/authentication/login.dart';
-import 'screens/authentication/register.dart';
+import 'package:kissdate/screens/menu.dart';
+import 'package:kissdate/screens/components/add.dart';
+import 'package:kissdate/screens/components/list/list.dart';
+import 'package:kissdate/screens/components/statistics/gender_statistics.dart';
+import 'package:kissdate/screens/components/statistics/age_statistics.dart';
+import 'package:kissdate/screens/components/statistics/statistics_menu.dart';
+import 'package:kissdate/screens/authentication/login.dart';
+import 'package:kissdate/screens/authentication/register.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
