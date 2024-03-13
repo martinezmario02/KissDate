@@ -56,7 +56,11 @@ class _MainMenuState extends State<MainMenu> {
                       checkLoggedStatus(false);
                       isLogged = false;
                       userId = -1;
-                      Navigator.pushNamed(context, '/lib/screens/start.dart');
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context, '/lib/screens/start.dart');
+                      } else {
+                        Navigator.pushNamed(context, '/lib/screens/start.dart');
+                      }
                     }
                   },
                   itemBuilder: (BuildContext context) {
@@ -94,7 +98,7 @@ class _MainMenuState extends State<MainMenu> {
                           width: screenWidth * 0.16,
                           height: screenWidth * 0.16),
                       const SizedBox(width: 15),
-                      Text('Añadir a la lista',
+                      Text('Añadir persona',
                           style: TextStyle(fontSize: screenWidth * 0.05)),
                     ],
                   ),

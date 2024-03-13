@@ -39,7 +39,7 @@ class KissDate extends StatelessWidget {
           '/lib/screens/users/register.dart': (context) =>
               const Register(titulo: 'Registrarse'),
           '/lib/screens/people/add.dart': (context) =>
-              const AddPerson(titulo: 'Añadir a la lista'),
+              const AddPerson(titulo: 'Añadir persona'),
           '/lib/screens/people/list.dart': (context) =>
               const ListPeople(titulo: 'Lista'),
           '/lib/screens/resume.dart': (context) =>

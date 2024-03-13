@@ -36,7 +36,8 @@ class _AddPersonState extends State<AddPerson> {
   /// Select an image from the gallery.
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: ImageSource.gallery);
+    final pickedImage = await picker.pickImage(
+        source: ImageSource.gallery);
 
     if (pickedImage != null) {
       setState(() {
