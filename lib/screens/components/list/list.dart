@@ -62,7 +62,9 @@ class _ListPeopleState extends State<ListPeople> {
                     list.sort((a, b) => a['list']['name']
                         .toString()
                         .toLowerCase()
-                        .compareTo(b['list']['name'].toString().toLowerCase()));
+                        .compareTo(b['list']['name'].
+                        toString().
+                        toLowerCase()));
                   });
                 } else if (value == 'ordenar_por_fecha') {
                   setState(() {
