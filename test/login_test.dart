@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kissdate/screens/users/login.dart';
+import 'package:kissdate/screens/authentication/login.dart';
 
 void main() {
   testWidgets('Login screen validation test', (WidgetTester tester) async {
