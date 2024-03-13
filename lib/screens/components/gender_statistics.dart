@@ -3,18 +3,18 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:kissdate/root.dart';
 
 /// Widget to show the summary of the list.
-class Summary extends StatefulWidget {
-  const Summary({super.key, required this.titulo});
+class GenderSummary extends StatefulWidget {
+  const GenderSummary({super.key, required this.titulo});
 
   /// Title of the widget.
   final String titulo;
 
   @override
-  State<Summary> createState() => _SummaryState();
+  State<GenderSummary> createState() => _GenderSummaryState();
 }
 
 /// State of the widget [Summary].
-class _SummaryState extends State<Summary> {
+class _GenderSummaryState extends State<GenderSummary> {
   late Future<Map<String, double?>> _statsFuture;
 
   @override
