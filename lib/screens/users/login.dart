@@ -33,6 +33,7 @@ class _LoginState extends State<Login> {
       _passwordController.text,
     );
     if (resultado == -1) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Usuario o contraseña incorrectos'),
@@ -44,6 +45,7 @@ class _LoginState extends State<Login> {
       isLogged = true;
       saveUserId(userId);
       Navigator.push(
+        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
           builder: (context) => const MainMenu(titulo: 'Kiss Date'),
