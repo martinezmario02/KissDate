@@ -57,4 +57,30 @@ class StatisticsDB extends DB {
       return {};
     }
   }
+
+  Future<Map<String, int?>> ageStatistics(int userId) async {
+    var result = <String, int?>{};
+
+    await conectar();
+
+    try {
+      /// SQL statement to get age statistics.
+      var ageResult = await conexion!.query(
+        "SELECT age, COUNT(*) FROM list WHERE user_id = $userId GROUP BY age",
+      );
+
+      for (var row in ageResult) {
+        var age = row.first.toString();
+        var count = int.tryParse(row[1].toString());
+        result[age] = count;
+      }
+
+      return result;
+    } catch (e) {
+      if (kDebugMode) {
+        print('ERROR: $e');
+      }
+      return {};
+    }
+  }
 }

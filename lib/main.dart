@@ -4,7 +4,9 @@ import 'screens/start.dart';
 import 'screens/menu.dart';
 import 'screens/components/add.dart';
 import 'screens/components/list.dart';
-import 'screens/components/statistics.dart';
+import 'screens/components/gender_statistics.dart';
+import 'screens/components/statistics_menu.dart';
+import 'screens/components/age_statistics.dart';
 import 'screens/users/login.dart';
 import 'screens/users/register.dart';
 
@@ -43,7 +45,11 @@ class KissDate extends StatelessWidget {
           '/lib/screens/people/list.dart': (context) =>
               const ListPeople(titulo: 'Lista'),
           '/lib/screens/resume.dart': (context) =>
-              const Summary(titulo: 'Resumen / Estadísticas'),
+              const SummaryMenu(titulo: 'Resumen / Estadísticas'),
+          '/lib/screens/gender_resume.dart': (context) =>
+              const GenderSummary(titulo: 'Estadísticas por género'),
+          '/lib/screens/age_resume.dart': (context) =>
+              const AgeSummary(titulo: 'Estadísticas por edad'),
         });
   }
 }
