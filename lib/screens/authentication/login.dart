@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
-import 'register.dart';
 import 'package:kissdate/screens/menu.dart';
 
 /// The login screen widget.
@@ -106,12 +105,7 @@ class _LoginState extends State<Login> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Register(titulo: 'Registro'),
-                    ),
-                  );
+                  Navigator.pushNamed(context, 'register.dart');
                 },
                 child: const Text('¿No estás registrado? Regístrate aquí'),
               ),

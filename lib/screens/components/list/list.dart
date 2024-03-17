@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
-import 'package:kissdate/screens/components/list/profile.dart';
 
 /// Widget to list people.
 class ListPeople extends StatefulWidget {
@@ -62,9 +61,7 @@ class _ListPeopleState extends State<ListPeople> {
                     list.sort((a, b) => a['list']['name']
                         .toString()
                         .toLowerCase()
-                        .compareTo(b['list']['name'].
-                        toString().
-                        toLowerCase()));
+                        .compareTo(b['list']['name'].toString().toLowerCase()));
                   });
                 } else if (value == 'ordenar_por_fecha') {
                   setState(() {
@@ -98,12 +95,7 @@ class _ListPeopleState extends State<ListPeople> {
                 child: InkWell(
                   onTap: () {
                     personId = list[index]['list']['person_id'];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Profile(),
-                      ),
-                    );
+                    Navigator.pushNamed(context, 'profile.dart');
                   },
                   child: Card(
                     color: const Color.fromARGB(255, 255, 157, 180),

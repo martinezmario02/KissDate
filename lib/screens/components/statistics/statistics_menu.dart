@@ -34,7 +34,7 @@ class _SummaryMenuState extends State<SummaryMenu> {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/gender_resume.dart');
+                    Navigator.pushNamed(context, 'gender_statistics.dart');
                   },
                   child: Text('Género', style: TextStyle(fontSize: screenWidth * 0.05)),
                 ),
@@ -46,7 +46,7 @@ class _SummaryMenuState extends State<SummaryMenu> {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/age_resume.dart');
+                    Navigator.pushNamed(context, 'age_statistics.dart');
                   },
                   child: Text('Edad', style: TextStyle(fontSize: screenWidth * 0.05)),
                 ),
@@ -62,7 +62,19 @@ class _SummaryMenuState extends State<SummaryMenu> {
                   },
                   child: Text('Nacionalidad', style: TextStyle(fontSize: screenWidth * 0.05)),
                 ),
-              )
+              ),
+              const SizedBox(height: 20),
+              Container(
+                height: 100,
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'year_statistics.dart');
+                  },
+                  child: Text('Año', style: TextStyle(fontSize: screenWidth * 0.05)),
+                ),
+              ),
             ],
           ),
         ),

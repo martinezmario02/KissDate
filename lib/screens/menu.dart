@@ -56,12 +56,11 @@ class _MainMenuState extends State<MainMenu> {
                 isLogged = false;
                 userId = -1;
                 if (Navigator.canPop(context)) {
-                  Navigator.pop(context, '/lib/screens/main.dart');
+                  Navigator.pop(context, 'main.dart');
                 } else {
-                  Navigator.pushNamed(context, '/lib/screens/main.dart');
+                  Navigator.pushNamed(context, 'main.dart');
                 }
-              } else if (value == 'ajustes') {
-              }
+              } else if (value == 'ajustes') {}
             },
             itemBuilder: (BuildContext context) {
               return [
@@ -94,8 +93,7 @@ class _MainMenuState extends State<MainMenu> {
                 height: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(
-                        context, '/lib/screens/people/add.dart');
+                    Navigator.pushNamed(context, 'add.dart');
                   },
                   child: Row(
                     children: [
@@ -115,8 +113,7 @@ class _MainMenuState extends State<MainMenu> {
                 height: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(
-                        context, '/lib/screens/people/list.dart');
+                    Navigator.pushNamed(context, 'list.dart');
                   },
                   child: Row(
                     children: [
@@ -136,7 +133,7 @@ class _MainMenuState extends State<MainMenu> {
                 height: 100,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/lib/screens/resume.dart');
+                    Navigator.pushNamed(context, 'statistics_menu.dart');
                   },
                   child: Row(
                     children: [
