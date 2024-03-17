@@ -83,4 +83,30 @@ class StatisticsDB extends DB {
       return {};
     }
   }
+
+  Future<Map<String, double?>> yearStatistics(int userId) async {
+    var result = <String, double?>{};
+
+    await conectar();
+
+    try {
+      /// SQL statement to get year statistics.
+      var yearResult = await conexion!.query(
+        "SELECT EXTRACT(YEAR FROM kiss_date) AS year, COUNT(*) FROM list WHERE user_id = $userId GROUP BY year",
+      );
+
+      for (var row in yearResult) {
+        var year = row[0].toString();
+        var count = double.tryParse(row[1].toString());
+        result[year] = count;
+      }
+
+      return result;
+    } catch (e) {
+      if (kDebugMode) {
+        print('ERROR: $e');
+      }
+      return {};
+    }
+  }
 }

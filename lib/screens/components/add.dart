@@ -36,8 +36,7 @@ class _AddPersonState extends State<AddPerson> {
   /// Select an image from the gallery.
   Future<void> _selectImageFromGallery() async {
     final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(
-        source: ImageSource.gallery);
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
       setState(() {
@@ -241,8 +240,7 @@ class _AddPersonState extends State<AddPerson> {
                             const SnackBar(
                                 content: Text('Persona añadida a la lista')),
                           );
-                          Navigator.pushNamed(
-                              context, '/lib/screens/people/list.dart');
+                          Navigator.pushNamed(context, 'list.dart');
                         }
                       },
                       child: const Text('Añadir a la lista'),
