@@ -10,19 +10,24 @@ class UserDB extends DB {
 
   /// Add a user.
   ///
+  /// [username] - Username associated with the user.
   /// [name] - Name of the user.
-  /// [email] - Email of the user.
-  /// [birthday] - Date of birth of the user.
+  /// [birthday] - (Optional) Birthday of the user.
   /// [password] - Password of the user.
+  /// [email] - (Optional)Email of the user.
   ///
   /// Returns the list of users.
-  Future<List<Map<String, dynamic>>> addUser(
-      String name, String email, DateTime birthday, String password) async {
+  Future<List<Map<String, dynamic>>> addUser(String username, String name,
+      DateTime? birthday, String password, String? email) async {
     String salt = BCrypt.gensalt();
     String hashedPassword = BCrypt.hashpw(password, salt);
 
-    return await ejecutar(
-        "INSERT INTO users (name, mail, birthday, password, salt) VALUES ('$name', '$email', '$birthday', '$hashedPassword', '$salt')");
+    String query = '''
+    INSERT INTO Usuarios (username, name, password, salt${birthday != null ? ', birthday' : ''}${email != null ? ', email' : ''})
+    VALUES ('$username', '$name', '$hashedPassword', '$salt'${birthday != null ? ", '$birthday'" : ''}${email != null ? ", '$email'" : ''})
+    ''';
+
+    return await ejecutar(query);
   }
 
   /// Login a user.
@@ -56,5 +61,14 @@ class UserDB extends DB {
         return -1;
       }
     }
+  }
+
+  /// Check if a user exists by username.
+  ///
+  /// [username] - Username of the user.
+  /// Returns true if the user exists, false otherwise.
+  Future<bool> userExists(String username) async {
+    var result = await ejecutar("select * from users where username='$username'");
+    return result.isNotEmpty;
   }
 }

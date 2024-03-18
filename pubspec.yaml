@@ -49,7 +49,7 @@ dependencies:
   # Save preferences on device
   shared_preferences: ^2.0.8
 
-  # Authentication
+  # Hashing passwords
   bcrypt: ^1.1.3
 
   # Logging
