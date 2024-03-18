@@ -144,17 +144,26 @@ class _RegisterState extends State<Register> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      register();
-                      checkLoggedStatus(true);
-                      isLogged = true;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Registro completado con éxito')),
-                      );
+                      try {
+                        register();
+                        checkLoggedStatus(true);
+                        isLogged = true;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Registro completado con éxito')),
+                        );
+                        logger.i(
+                            'Nuevo usuario registrado: ${_emailController.text}');
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Error al registrarse')));
+                        logger.e(e);
+                      }
                       Navigator.pop(context);
                     }
                   },
-                  child: const Text('Registrar'),
+                  child: const Text('Registrarse'),
                 ),
               ),
             ],

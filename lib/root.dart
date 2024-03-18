@@ -2,6 +2,7 @@ import 'package:kissdate/controllers/list_controller.dart';
 import 'package:kissdate/controllers/users_controller.dart';
 import 'package:kissdate/controllers/statistics_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logger/logger.dart';
 
 /// Controllers to manage the data.
 final UserController userController = UserController();
@@ -12,6 +13,9 @@ final StatisticsController statsController = StatisticsController();
 int userId = -1;
 int personId = -1;
 bool isLogged = false;
+
+/// Logger to print messages.
+final logger = Logger();
 
 /// Check if the user is logged in.
 Future<bool> isLoggedStatus() async {

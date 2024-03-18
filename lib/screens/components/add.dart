@@ -235,11 +235,21 @@ class _AddPersonState extends State<AddPerson> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          addToList();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Persona añadida a la lista')),
-                          );
+                          try {
+                            addToList();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Persona añadida a la lista')),
+                            );
+                            logger.i(
+                                "El usuario con id $userId ha añadido una nueva persona a la lista: ${_nameController.text}");
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Error al añadir a la lista')),
+                            );
+                            logger.e(e);
+                          }
                           Navigator.pushNamed(context, 'list.dart');
                         }
                       },
