@@ -29,6 +29,10 @@ class StatisticsController {
     return await db.ageStatistics(userId);
   }
 
+  Future<Map<String, int?>> nationalityStatistics(int userId) async {
+    return await db.nationalityStatistics(userId);
+  }
+
   Future<Map<String, double?>> yearStatistics(int userId) async {
     return await db.yearStatistics(userId);
   }

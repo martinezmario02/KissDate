@@ -58,7 +58,7 @@ class _SummaryMenuState extends State<SummaryMenu> {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    //Navigator.pushNamed(context, '/lib/screens/resume.dart');
+                    Navigator.pushNamed(context, 'nationality_statistics.dart');
                   },
                   child: Text('Nacionalidad', style: TextStyle(fontSize: screenWidth * 0.05)),
                 ),

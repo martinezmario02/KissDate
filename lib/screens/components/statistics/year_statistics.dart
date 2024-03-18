@@ -48,7 +48,7 @@ class _YearSummaryState extends State<YearSummary> {
                   color: Colors
                       .primaries[sections.length % Colors.primaries.length],
                   value: count,
-                  title: '$year (${count.toInt()})',
+                  title: '${double.parse(year).toStringAsFixed(0)} (${count.toInt()})',
                   radius: 100,
                 ));
               }
