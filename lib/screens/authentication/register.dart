@@ -204,7 +204,7 @@ class _RegisterState extends State<Register> {
   }
 }
 
-/// Validate the userName (it has to be unique).
+/// Validate the userName (it must be unique).
 String? validateUserName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Por favor, introduce tu nombre de usuario';
