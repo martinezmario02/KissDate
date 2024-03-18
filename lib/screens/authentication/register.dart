@@ -15,33 +15,37 @@ class Register extends StatefulWidget {
 /// State of the widget [Register].
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
+  final _userNameController = TextEditingController();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
   final _birthdayController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _emailController = TextEditingController();
 
   DateTime date = DateTime.now();
 
   @override
   void dispose() {
+    _userNameController.dispose();
     _nameController.dispose();
-    _emailController.dispose();
     _birthdayController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _emailController.dispose();
 
     super.dispose();
   }
 
   /// Registers a new user.
   Future<void> register() async {
-    userController.addUser(
-      _nameController.text,
-      _emailController.text,
-      DateTime.parse(_birthdayController.text),
-      _passwordController.text,
-    );
+    DateTime? birthday = _birthdayController.text.isNotEmpty
+        ? DateTime.parse(_birthdayController.text)
+        : null;
+    String? email =
+        _emailController.text.isNotEmpty ? _emailController.text : null;
+
+    userController.addUser(_userNameController.text, _nameController.text,
+        birthday, _passwordController.text, email);
   }
 
   /// Shows a date picker to select the user's birthday.
@@ -89,6 +93,12 @@ class _RegisterState extends State<Register> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                controller: _userNameController,
+                decoration:
+                    const InputDecoration(labelText: 'Nombre de usuario'),
+                validator: validateUserName,
+              ),
+              TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(labelText: 'Nombre'),
                 validator: (value) {
@@ -109,12 +119,6 @@ class _RegisterState extends State<Register> {
                 onTap: () => selectDate(context),
                 decoration:
                     const InputDecoration(labelText: 'Fecha de nacimiento'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, introduce tu fecha de nacimiento';
-                  }
-                  return null;
-                },
               ),
               TextFormField(
                 controller: _passwordController,
@@ -144,17 +148,26 @@ class _RegisterState extends State<Register> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      register();
-                      checkLoggedStatus(true);
-                      isLogged = true;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Registro completado con éxito')),
-                      );
+                      try {
+                        register();
+                        checkLoggedStatus(true);
+                        isLogged = true;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Registro completado con éxito')),
+                        );
+                        logger.i(
+                            'Nuevo usuario registrado: ${_userNameController.text}');
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Error al registrarse')));
+                        logger.e(e);
+                      }
                       Navigator.pop(context);
                     }
                   },
-                  child: const Text('Registrar'),
+                  child: const Text('Registrarse'),
                 ),
               ),
             ],
@@ -166,13 +179,9 @@ class _RegisterState extends State<Register> {
 
   /// Validate the email format.
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, introduce tu correo electrónico';
-    }
-
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-    if (!emailRegex.hasMatch(value)) {
+    if (value != null && value.isNotEmpty && !emailRegex.hasMatch(value)) {
       return 'Por favor, introduce un correo electrónico válido';
     }
 
@@ -193,4 +202,13 @@ class _RegisterState extends State<Register> {
 
     return null;
   }
+}
+
+/// Validate the userName (it must be unique).
+String? validateUserName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Por favor, introduce tu nombre de usuario';
+  }
+
+  return null;
 }

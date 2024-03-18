@@ -12,13 +12,16 @@ class UserController {
 
   /// Add a user.
   ///
+  /// [username] - Username associated with the user.
   /// [name] - Name of the user.
   /// [email] - Email of the user.
   /// [birthday] - Date of birth of the user.
   /// [password] - Password of the user.
+  ///
   Future<List<Map<String, dynamic>>> addUser(
-      String name, String email, DateTime birthday, String password) async {
-    return await db.addUser(name, email, birthday, password);
+      String username, String name,
+      DateTime? birthday, String password, String? email) async {
+    return await db.addUser(username, name, birthday, password, email);
   }
 
   /// Login a user.
@@ -29,5 +32,14 @@ class UserController {
   /// Returns the identifier of the user if the login is successful, -1 otherwise.
   Future<int> login(String email, String password) async {
     return await db.login(email, password);
+  }
+
+  /// Check if a user exists.
+  ///
+  /// [username] - Username of the user.
+  ///
+  /// Returns true if the user exists, false otherwise.
+  Future<bool> userExists(String username) async {
+    return await db.userExists(username);
   }
 }

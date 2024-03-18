@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:kissdate/root.dart';
 import 'package:kissdate/screens/menu.dart';
 import 'package:kissdate/screens/components/add.dart';
@@ -15,6 +16,7 @@ import 'package:kissdate/screens/authentication/register.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   isLogged = await isLoggedStatus();
+  Logger.level = Level.info;
   runApp(KissDate(isLogged: isLogged));
 }
 

@@ -28,7 +28,7 @@ void main() {
 
   testWidgets('Login screen navigation test', (WidgetTester tester) async {
     final routes = <String, WidgetBuilder>{
-      'register.dart': (context) => const Register(titulo: 'Registrarse'),
+      'register.dart': (context) => const Register(titulo: 'Registro'),
     };
 
     // Build our widget and trigger a frame
