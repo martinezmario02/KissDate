@@ -6,6 +6,7 @@ import 'package:kissdate/screens/components/list/list.dart';
 import 'package:kissdate/screens/components/list/profile.dart';
 import 'package:kissdate/screens/components/statistics/gender_statistics.dart';
 import 'package:kissdate/screens/components/statistics/age_statistics.dart';
+import 'package:kissdate/screens/components/statistics/nationality_statistics.dart';
 import 'package:kissdate/screens/components/statistics/year_statistics.dart';
 import 'package:kissdate/screens/components/statistics/statistics_menu.dart';
 import 'package:kissdate/screens/authentication/login.dart';
@@ -48,6 +49,8 @@ class KissDate extends StatelessWidget {
               const GenderSummary(titulo: 'Estadísticas por género'),
           'age_statistics.dart': (context) =>
               const AgeSummary(titulo: 'Estadísticas por edad'),
+          'nationality_statistics.dart': (context) =>
+              const NationalitySummary(titulo: 'Estadísticas por nacionalidad'),
           'year_statistics.dart': (context) =>
               const YearSummary(titulo: 'Estadísticas por año'),
         });
