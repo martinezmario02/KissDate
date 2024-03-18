@@ -38,8 +38,8 @@ class KissDate extends StatelessWidget {
         routes: {
           'main.dart': (context) => const KissDate(isLogged: false),
           'menu.dart': (context) => const MainMenu(titulo: 'Kiss Date'),
-          'login.dart': (context) => const Login(titulo: 'Iniciar sesión'),
-          'register.dart': (context) => const Register(titulo: 'Registrarse'),
+          'login.dart': (context) => const Login(titulo: 'Inicio de sesión'),
+          'register.dart': (context) => const Register(titulo: 'Registro'),
           'add.dart': (context) => const AddPerson(titulo: 'Añadir persona'),
           'list.dart': (context) => const ListPeople(titulo: 'Lista'),
           'profile.dart': (context) => const Profile(),
