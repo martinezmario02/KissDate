@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kissdate/screens/authentication/login.dart';
+import 'package:kissdate/screens/authentication/register.dart';
 
 void main() {
   testWidgets('Login screen validation test', (WidgetTester tester) async {
@@ -26,10 +27,15 @@ void main() {
   });
 
   testWidgets('Login screen navigation test', (WidgetTester tester) async {
+    final routes = <String, WidgetBuilder>{
+      'register.dart': (context) => const Register(titulo: 'Registrarse'),
+    };
+
     // Build our widget and trigger a frame
     await tester.pumpWidget(
-      const MaterialApp(
-        home: Login(titulo: 'Inicio de sesión'), // Crea una instancia de Login
+      MaterialApp(
+        home: const Login(titulo: 'Inicio de sesión'),
+        routes: routes,
       ),
     );
 
@@ -43,6 +49,6 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that the register screen is pushed onto the navigator stack
-    expect(find.text('Registro'), findsOneWidget);
+    expect(find.text('Registrarse'), findsOneWidget);
   });
 }
