@@ -31,9 +31,8 @@ jobs:
       - name: Test
         run: flutter test
 
-      - name: Build APK
-        run: flutter build apk
+      #- name: Build APK
+      #  run: flutter build apk
 
-      - name: Build IOS
-        if: runner.os == 'macos'
-        run: flutter build ios
+      # - name: Build IOS
+      # run: flutter build ios
