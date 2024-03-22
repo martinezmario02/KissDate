@@ -60,7 +60,7 @@ class _AddPersonState extends State<AddPerson> {
   }
 
   /// Add a person to the list.
-  Future<void> addToList() async {
+  Future<void> addToList(File? image) async {
     peopleController.addToList(
       userId,
       _nameController.text,
@@ -70,6 +70,7 @@ class _AddPersonState extends State<AddPerson> {
       DateTime.parse(_kissDateController.text),
       _observationsController.text,
       _genderController.text,
+      image,
     );
   }
 
@@ -236,7 +237,7 @@ class _AddPersonState extends State<AddPerson> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           try {
-                            addToList();
+                            addToList(_image);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                   content: Text('Persona añadida a la lista')),

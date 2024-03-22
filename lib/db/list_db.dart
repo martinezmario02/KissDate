@@ -1,8 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
 import 'db.dart';
 
 /// Class that represents the database for the list.
 class ListDB extends DB {
-  /// Add a person to the list.
+/// Add a person to the list.
   ///
   /// [userId] - Identifier of the user to whom the person is associated.
   /// [name] - Name of the person.
@@ -12,17 +14,26 @@ class ListDB extends DB {
   /// [kissDate] - Date of the first kiss with the person.
   /// [observations] - Observations about the person.
   /// [gender] - Gender of the person.
-  Future<List<Map<String, dynamic>>> addToList(
-      int userId,
-      String name,
-      int age,
-      String nationality,
-      String relationship,
-      DateTime kissDate,
-      String observations,
-      String gender) async {
-    return await ejecutar(
-        "insert into list (user_id, name, age, nationality, relationship, kiss_date, observations, gender) values ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations', '$gender')");
+  /// [image] - Image of the person.
+  Future<void> addToList(
+    int userId,
+    String name,
+    int age,
+    String nationality,
+    String relationship,
+    DateTime kissDate,
+    String observations,
+    String gender,
+    File? image,
+  ) async {
+    String imagePath = '';
+    if (image != null) {
+      List<int> imageBytes = await image.readAsBytes();
+      String base64Image = base64Encode(imageBytes);
+      imagePath = base64Image;
+    }
+
+    await ejecutar("INSERT INTO list (user_id, name, age, nationality, relationship, kiss_date, observations, gender, image) VALUES ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations', '$gender', '$imagePath')");
   }
 
   /// Returns the list of people associated with a user.

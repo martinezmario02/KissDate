@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:kissdate/db/list_db.dart';
 
 /// Instance of the database for the list of people.
@@ -15,7 +16,8 @@ class ListController {
   /// [kissDate] - Date of the first kiss with the person.
   /// [observations] - Observations about the person.
   /// [gender] - Gender of the person.
-  Future<List<Map<String, dynamic>>> addToList(
+  /// [image] - Image of the person.
+  Future<void> addToList(
       int userId,
       String name,
       int age,
@@ -23,9 +25,10 @@ class ListController {
       String relationship,
       DateTime kissDate,
       String observations,
-      String gender) async {
+      String gender,
+      File? image) async {
     return await db.addToList(
-        userId, name, age, nationality, relationship, kissDate, observations, gender);
+        userId, name, age, nationality, relationship, kissDate, observations, gender, image);
   }
 
   /// Get the list of people associated with a user.
