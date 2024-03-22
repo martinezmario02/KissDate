@@ -1,7 +1,8 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
-/// Widget to show the profile of a person.
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -11,7 +12,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var person = {};
-  bool isLoading = true; // Variable to track loading state
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -20,7 +21,6 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<void> getProfile() async {
-    // Simulate loading delay with Future.delayed
     await Future.delayed(const Duration(milliseconds: 10));
 
     var p = await peopleController.person(personId);
@@ -40,13 +40,30 @@ class _ProfileState extends State<Profile> {
       ),
       body: isLoading
           ? const Center(
-              child: CircularProgressIndicator(), // Show loading indicator
+              child: CircularProgressIndicator(),
             )
           : SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Mostrar imagen si existe
+                  if (person['list']?['image'] != null)
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: MemoryImage(
+                            Uint8List.fromList(
+                              base64.decode(person['list']?['image']),
+                            ),
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 20),
                   Text(
                     'Nombre: ${person['list']?['name'] ?? ''}',
                     style: const TextStyle(fontSize: 18),

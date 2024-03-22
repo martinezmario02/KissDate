@@ -28,10 +28,9 @@ class ListDB extends DB {
   ) async {
     String imagePath = '';
     if (image != null) {
-      // Convertir la imagen a bytes y codificarla en base64
       List<int> imageBytes = await image.readAsBytes();
       String base64Image = base64Encode(imageBytes);
-      imagePath = base64Image; // Asignar la cadena codificada a imagePath
+      imagePath = base64Image;
     }
 
     await ejecutar("INSERT INTO list (user_id, name, age, nationality, relationship, kiss_date, observations, gender, image) VALUES ($userId, '$name', $age, '$nationality', '$relationship', '$kissDate', '$observations', '$gender', '$imagePath')");
