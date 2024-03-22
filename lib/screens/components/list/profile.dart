@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
@@ -55,9 +54,7 @@ class _ProfileState extends State<Profile> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: MemoryImage(
-                            Uint8List.fromList(
-                              base64.decode(person['list']?['image']),
-                            ),
+                            base64.decode(person['list']?['image']),
                           ),
                           fit: BoxFit.cover,
                         ),
