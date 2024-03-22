@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
 
@@ -107,6 +108,12 @@ class _ListPeopleState extends State<ListPeople> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          CircleAvatar(
+                            radius: 30,
+                            backgroundImage: list[index]['list']['image'] != null
+                              ? MemoryImage(base64.decode(list[index]['list']['image'] as String)) as ImageProvider<Object>?
+                              : const AssetImage('assets/icons/person.png'),
+                          ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
