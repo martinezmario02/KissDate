@@ -51,4 +51,11 @@ class ListController {
   Future<Map<String, dynamic>> person(int personId) async {
     return await db.person(personId);
   }
+
+  /// Get the number of people in the list.
+  ///
+  /// [userId] - Identifier of the user whose count is to be obtained.
+  Future<int> count(int userId) async {
+    return await db.count(userId);
+  }
 }
