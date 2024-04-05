@@ -66,7 +66,6 @@ class ListDB extends DB {
   Future<int> countYear(int userId) async {
     List<Map<String, dynamic>> result = await ejecutar(
         "SELECT COUNT(*) FROM list WHERE user_id=$userId AND EXTRACT(YEAR FROM kiss_date) = EXTRACT(YEAR FROM CURRENT_DATE)");
-
     return result.isNotEmpty
         ? int.tryParse(result[0]['']['count'].toString()) ?? 0
         : 0;
