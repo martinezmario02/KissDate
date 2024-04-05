@@ -68,8 +68,9 @@ class ListDB extends DB {
   Future<int> count(int userId) async {
     List<Map<String, dynamic>> result =
         await ejecutar("select count(*) from list where user_id=$userId");
+  
     return result.isNotEmpty
-        ? int.tryParse(result[0]['count'].toString()) ?? 0
+        ? int.tryParse(result[0]['']['count'].toString()) ?? 0
         : 0;
   }
 }
