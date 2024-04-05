@@ -33,26 +33,31 @@ class _WrappedState extends State<Wrapped> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            'second.dart');
-        },
-        child: AnimatedBuilder(
-          animation: _opacityAnimation,
-          builder: (context, child) {
-            return Opacity(
-              opacity: _opacityAnimation.value,
-              child: const Center(
-                child: Text(
-                  'Este año...',
-                  style: TextStyle(fontSize: 24),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          'second.dart',
+        );
+      },
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: AnimatedBuilder(
+            animation: _opacityAnimation,
+            builder: (context, child) {
+              return Opacity(
+                opacity: _opacityAnimation.value,
+                child: const Center(
+                  child: Text(
+                    'Este año...',
+                    style: TextStyle(fontSize: 24),
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );
