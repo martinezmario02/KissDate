@@ -58,11 +58,4 @@ class ListController {
   Future<int> countYear(int userId) async {
     return await db.countYear(userId);
   }
-
-  /// Get the month with the most people associated with a user.
-  ///
-  /// [userId] - Identifier of the user whose count is to be obtained.
-  Future<String> countMonth(int userId) async {
-    return await db.countMonth(userId);
-  }
 }
