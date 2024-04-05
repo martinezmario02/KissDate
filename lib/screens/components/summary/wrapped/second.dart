@@ -42,7 +42,7 @@ class _SecondPageState extends State<SecondPage>
         onTap: () {
           Navigator.pushNamed(
             context,
-            'third.dart',
+            'second.dart',
           );
         },
         child: AnimatedBuilder(
