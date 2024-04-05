@@ -52,10 +52,10 @@ class ListController {
     return await db.person(personId);
   }
 
-  /// Get the number of people in the list.
+  /// Get the number of people in the list in a year.
   ///
   /// [userId] - Identifier of the user whose count is to be obtained.
-  Future<int> count(int userId) async {
-    return await db.count(userId);
+  Future<int> countYear(int userId) async {
+    return await db.countYear(userId);
   }
 }

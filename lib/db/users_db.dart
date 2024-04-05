@@ -5,7 +5,7 @@ import 'db.dart';
 class UserDB extends DB {
   /// Get the list of users.
   Future<List<Map<String, dynamic>>> users() async {
-    return await ejecutar("select * from users");
+    return await ejecutar("SELECT * FROM users");
   }
 
   /// Add a user.
@@ -68,7 +68,7 @@ class UserDB extends DB {
   /// [username] - Username of the user.
   /// Returns true if the user exists, false otherwise.
   Future<bool> userExists(String username) async {
-    var result = await ejecutar("select * from users where username='$username'");
+    var result = await ejecutar("SELECT * FROM users WHERE username='$username'");
     return result.isNotEmpty;
   }
 }
