@@ -11,7 +11,6 @@ import 'package:kissdate/screens/components/summary/statistics/nationality_stati
 import 'package:kissdate/screens/components/summary/statistics/year_statistics.dart';
 import 'package:kissdate/screens/components/summary/wrapped/first.dart';
 import 'package:kissdate/screens/components/summary/wrapped/second.dart';
-import 'package:kissdate/screens/components/summary/wrapped/third.dart';
 import 'package:kissdate/screens/components/summary/menu_summary.dart';
 import 'package:kissdate/screens/authentication/login.dart';
 import 'package:kissdate/screens/authentication/register.dart';
@@ -60,7 +59,6 @@ class KissDate extends StatelessWidget {
               const YearSummary(titulo: 'Estadísticas por año'),
           'wrapped.dart': (context) => const Wrapped(),
           'second.dart': (context) => const SecondPage(),
-          'third.dart': (context) => const ThirdPage(),
         });
   }
 }

@@ -52,7 +52,7 @@ class _SecondPageState extends State<SecondPage>
               opacity: _opacityAnimation.value,
               child: Center(
                 child: FutureBuilder<int>(
-                  future: peopleController.count(userId),
+                  future: peopleController.countYear(userId),
                   builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
