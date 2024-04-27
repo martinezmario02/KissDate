@@ -12,6 +12,7 @@ class _SecondPageState extends State<SecondPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
+  final ValueNotifier<int?> peopleCountThisYear = ValueNotifier<int?>(null);
 
   @override
   void initState() {
@@ -37,40 +38,96 @@ class _SecondPageState extends State<SecondPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            'second.dart',
-          );
-        },
-        child: AnimatedBuilder(
-          animation: _opacityAnimation,
-          builder: (context, child) {
-            return Opacity(
-              opacity: _opacityAnimation.value,
-              child: Center(
-                child: FutureBuilder<int>(
-                  future: peopleController.countYear(userId),
-                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else {
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return Text(
-                          'Has estado con ${snapshot.data} personas',
-                          style: const TextStyle(fontSize: 24),
-                        );
-                      }
-                    }
-                  },
-                ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          'second.dart',
+        );
+      },
+      child: Scaffold(
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedBuilder(
+                animation: _opacityAnimation,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _opacityAnimation.value,
+                    child: FutureBuilder<int>(
+                      future: peopleController.countYear(
+                          userId, DateTime.now().year),
+                      builder:
+                          (BuildContext context, AsyncSnapshot<int> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else {
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            peopleCountThisYear.value = snapshot.data;
+                            return Text(
+                              'Has estado con ${snapshot.data} personas este año',
+                              style: const TextStyle(fontSize: 24),
+                            );
+                          }
+                        }
+                      },
+                    ),
+                  );
+                },
               ),
-            );
-          },
+              const SizedBox(height: 20),
+              AnimatedBuilder(
+                animation: _opacityAnimation,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity:
+                        _opacityAnimation.status == AnimationStatus.completed
+                            ? 1.0
+                            : 0.0,
+                    child: FutureBuilder<int>(
+                      future: peopleController.countYear(
+                          userId, DateTime.now().year - 1),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<int> snapshotLastYear) {
+                        if (snapshotLastYear.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else {
+                          if (snapshotLastYear.hasError) {
+                            return Text('Error: ${snapshotLastYear.error}');
+                          } else {
+                            int difference = peopleCountThisYear.value! -
+                                (snapshotLastYear.data ?? 0);
+
+                            String flecha = '';
+
+                            if (difference < 0) {
+                              flecha = '↓';
+                              difference = difference.abs();
+                            }
+                            else {
+                              flecha = '↑';
+                            }
+
+                            return Text(
+                              '$difference $flecha',
+                              style: const TextStyle(fontSize: 24),
+                            );
+                          }
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
