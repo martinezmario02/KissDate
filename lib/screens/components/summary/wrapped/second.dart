@@ -116,7 +116,7 @@ class _SecondPageState extends State<SecondPage>
                             }
 
                             return Text(
-                              '$difference ',
+                              '$difference $flecha',
                               style: const TextStyle(fontSize: 24),
                             );
                           }
