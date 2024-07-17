@@ -68,7 +68,7 @@ class UserDB extends DB {
   /// [username] - Username of the user.
   /// Returns true if the user exists, false otherwise.
   Future<bool> userExists(String username) async {
-    var result = await ejecutar("SELECT * FROM users WHERE username='$username'");
+    var result = await ejecutar("SELECT * FROM usuarios WHERE username='$username'");
     return result.isNotEmpty;
   }
 }
