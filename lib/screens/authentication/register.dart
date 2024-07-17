@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
   }
 
   /// Registers a new user.
-  Future<void> register() async {
+  void register() {
     DateTime? birthday = _birthdayController.text.isNotEmpty
         ? DateTime.parse(_birthdayController.text)
         : null;
@@ -226,6 +226,10 @@ class _RegisterState extends State<Register> {
     if (await userController.userExists(_userNameController.text)) {
       setState(() {
         _usernameError = true;
+      });
+    } else{
+      setState(() {
+        _usernameError = false;
       });
     }
   }
