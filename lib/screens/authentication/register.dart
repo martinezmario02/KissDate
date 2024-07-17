@@ -23,6 +23,7 @@ class _RegisterState extends State<Register> {
   final _emailController = TextEditingController();
 
   DateTime date = DateTime.now();
+  bool _usernameError = false;
 
   @override
   void dispose() {
@@ -146,25 +147,33 @@ class _RegisterState extends State<Register> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      try {
-                        register();
-                        checkLoggedStatus(true);
-                        isLogged = true;
+                      await checkUserName();
+                      if(_usernameError){
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text('Registro completado con éxito')),
+                              content: Text('El nombre de usuario ya está en uso')),
                         );
-                        logger.i(
-                            'Nuevo usuario registrado: ${_userNameController.text}');
-                      } catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
+                      } else{
+                        try {
+                          register();
+                          checkLoggedStatus(true);
+                          isLogged = true;
+                          ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text('Error al registrarse')));
-                        logger.e(e);
+                                content: Text('Registro completado con éxito')),
+                          );
+                          logger.i(
+                              'Nuevo usuario registrado: ${_userNameController.text}');
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Error al registrarse')));
+                          logger.e(e);
+                        }
+                        Navigator.pop(context);
                       }
-                      Navigator.pop(context);
                     }
                   },
                   child: const Text('Registrarse'),
@@ -202,13 +211,24 @@ class _RegisterState extends State<Register> {
 
     return null;
   }
-}
 
-/// Validate the userName (it must be unique).
-String? validateUserName(String? value) {
-  if (value == null || value.isEmpty) {
-    return 'Por favor, introduce tu nombre de usuario';
+  /// Validate the userName (it must be unique).
+  String? validateUserName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, introduce tu nombre de usuario';
+    }
+
+    return null;
   }
 
-  return null;
+  /// Check is userName already exists.
+  Future<void> checkUserName() async {
+    if (await userController.userExists(_userNameController.text)) {
+      setState(() {
+        _usernameError = true;
+      });
+    }
+  }
+  
 }
+
