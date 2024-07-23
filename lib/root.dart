@@ -1,6 +1,7 @@
 import 'package:kissdate/controllers/list_controller.dart';
 import 'package:kissdate/controllers/users_controller.dart';
 import 'package:kissdate/controllers/statistics_controller.dart';
+import 'package:kissdate/controllers/wrapped_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:logger/logger.dart';
 
@@ -8,6 +9,7 @@ import 'package:logger/logger.dart';
 final UserController userController = UserController();
 final ListController peopleController = ListController();
 final StatisticsController statsController = StatisticsController();
+final WrappedController wrappedController = WrappedController();
 
 /// Global variables.
 int userId = -1;
