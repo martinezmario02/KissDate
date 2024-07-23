@@ -88,15 +88,15 @@ class _SeventhPageState extends State<SeventhPage> with SingleTickerProviderStat
                           colors: const [Color.fromARGB(255, 243, 105, 137), Color.fromARGB(255, 211, 39, 79), Color.fromARGB(255, 252, 19, 74), Color.fromARGB(255, 255, 157, 180)],  // Different colors of confetti
                         ),
                       ),
-                      Text(
+                      const Text(
                         'Muchas gracias',
                         style: TextStyle(fontSize: 24),
                       ),
-                      Text(
+                      const Text(
                         'por confiar en nosotros',
                         style: TextStyle(fontSize: 24),
                       ),
-                      Text(
+                      const Text(
                         '💕✨',
                         style: TextStyle(fontSize: 24),
                       ),
