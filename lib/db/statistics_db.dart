@@ -90,7 +90,7 @@ class StatisticsDB extends DB {
     await conectar();
 
     try {
-      /// SQL statement to get age statistics.
+      /// SQL statement to get nationality statistics.
       var nationalityResult = await conexion!.query(
         "SELECT nationality, COUNT(*) FROM list WHERE user_id = $userId GROUP BY nationality",
       );

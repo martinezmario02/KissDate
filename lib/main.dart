@@ -11,6 +11,11 @@ import 'package:kissdate/screens/components/summary/statistics/nationality_stati
 import 'package:kissdate/screens/components/summary/statistics/year_statistics.dart';
 import 'package:kissdate/screens/components/summary/wrapped/first.dart';
 import 'package:kissdate/screens/components/summary/wrapped/second.dart';
+import 'package:kissdate/screens/components/summary/wrapped/third.dart';
+import 'package:kissdate/screens/components/summary/wrapped/fourth.dart';
+import 'package:kissdate/screens/components/summary/wrapped/fifth.dart';
+import 'package:kissdate/screens/components/summary/wrapped/sixth.dart';
+import 'package:kissdate/screens/components/summary/wrapped/seventh.dart';
 import 'package:kissdate/screens/components/summary/menu_summary.dart';
 import 'package:kissdate/screens/authentication/login.dart';
 import 'package:kissdate/screens/authentication/register.dart';
@@ -59,6 +64,11 @@ class KissDate extends StatelessWidget {
               const YearSummary(titulo: 'Estadísticas por año'),
           'wrapped.dart': (context) => const Wrapped(),
           'second.dart': (context) => const SecondPage(),
+          'third.dart': (context) => const ThirdPage(),
+          'fourth.dart': (context) => const FourthPage(),
+          'fifth.dart': (context) => const FifthPage(),
+          'sixth.dart': (context) => const SixthPage(),
+          'seventh.dart': (context) => const SeventhPage(),
         });
   }
 }

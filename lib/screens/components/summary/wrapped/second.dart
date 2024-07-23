@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kissdate/root.dart';
+import 'package:confetti/confetti.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key});
@@ -12,6 +13,7 @@ class _SecondPageState extends State<SecondPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
+  late ConfettiController _confettiController;
   final ValueNotifier<int?> peopleCountThisYear = ValueNotifier<int?>(null);
 
   @override
@@ -28,11 +30,15 @@ class _SecondPageState extends State<SecondPage>
     ).animate(_controller);
 
     _controller.forward();
+
+    _confettiController = ConfettiController(duration: const Duration(seconds: 2));
+    _confettiController.play();  // Start the confetti animation when the screen is displayed
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 
@@ -42,7 +48,7 @@ class _SecondPageState extends State<SecondPage>
       onTap: () {
         Navigator.pushNamed(
           context,
-          'second.dart',
+          'third.dart',
         );
       },
       child: Scaffold(
@@ -70,9 +76,23 @@ class _SecondPageState extends State<SecondPage>
                             return Text('Error: ${snapshot.error}');
                           } else {
                             peopleCountThisYear.value = snapshot.data;
-                            return Text(
-                              'Has estado con ${snapshot.data} personas este año',
-                              style: const TextStyle(fontSize: 24),
+                            return Column(
+                              children: [
+                                Text(
+                                  'Has estado con ${snapshot.data} personas',
+                                  style: const TextStyle(fontSize: 24),
+                                ),
+                                // Confetti widget
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: ConfettiWidget(
+                                    confettiController: _confettiController,
+                                    blastDirection: 0,
+                                    shouldLoop: false,
+                                    colors: const [Color.fromARGB(255, 243, 105, 137), Color.fromARGB(255, 211, 39, 79), Color.fromARGB(255, 252, 19, 74), Color.fromARGB(255, 255, 157, 180)],  // Different colors of confetti
+                                  ),
+                                ),
+                              ]
                             );
                           }
                         }
@@ -97,7 +117,7 @@ class _SecondPageState extends State<SecondPage>
                           AsyncSnapshot<int> snapshotLastYear) {
                         if (snapshotLastYear.connectionState ==
                             ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
+                          return const CircularProgressIndicator(color: Colors.white);
                         } else {
                           if (snapshotLastYear.hasError) {
                             return Text('Error: ${snapshotLastYear.error}');
